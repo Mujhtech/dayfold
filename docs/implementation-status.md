@@ -4,7 +4,7 @@ Updated 6 November 2026. M00–M11 have a working development implementation, a 
 
 | Milestone | Implemented behavior and evidence | Remaining acceptance evidence |
 | --- | --- | --- |
-| M00 | Existing starter preserved in a0e0c47; Xcode project, shared scheme, pinned packages, scripts, Run action, ad hoc build. | Clean-checkout result is recorded in verification.md. |
+| M00 | Existing starter preserved in a0e0c47; Xcode project, shared scheme, pinned packages, scripts, Run action; fresh-checkout build passed with cached dependencies. | Cold-network dependency resolution was not repeated. |
 | M01 | Real bundle launched; populated demo, shared menu data, editing, restart persistence, closing all windows while process stays alive. | Dock activation and login launch need completed manual records. |
 | M02 | Schema v5, scoped identities, staged snapshots, transactional drafts/outbox, migration, interrupted work, disk-full rollback, corruption preservation, future-schema refusal. | No previous public beta exists; migration evidence uses the committed v1 fixture. |
 | M03 | AppAuth external browser/PKCE, loopback cleanup/timeout, Keychain adapter, subject reconnection, single-flight refresh, grant capabilities. Fake AppAuth/credential tests pass. | Owner Google Desktop OAuth configuration and authorized test accounts are absent. |

@@ -28,4 +28,4 @@ These captures contain fictional demo data only.
 
 ![Populated week view](docs/screenshots/week.png)
 
-[Month](docs/screenshots/month.png) · [Editor](docs/screenshots/editor.png) · [Quick entry](docs/screenshots/quick-entry.png) · [Account settings](docs/screenshots/accounts.png) · [Conflict review](docs/screenshots/conflict.png)
+[Month](docs/screenshots/month.png) · [Agenda](docs/screenshots/agenda.png) · [Editor](docs/screenshots/editor.png) · [Quick entry](docs/screenshots/quick-entry.png) · [Account settings](docs/screenshots/accounts.png) · [Conflict review](docs/screenshots/conflict.png)

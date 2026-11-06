@@ -265,7 +265,7 @@ P/N/L/H include verification gaps, not claims that all such checks are technical
 
 | ID | Scenario | Implementation | Evidence / remaining check |
 | --- | --- | --- | --- |
-| REL01 | Clean checkout on documented Mac toolchain | [build](../script/build_and_run.sh) | Clean-checkout build evidence is recorded in verification.md; exact versions/lockfiles committed. |
+| REL01 | Clean checkout on documented Mac toolchain | [build](../script/build_and_run.sh) | Passed fresh checkout of e166b10 with cached pinned dependencies and fresh build products; details in verification.md. Cold-network download not repeated. |
 | REL02 | Core tests without Google credentials | [build](../script/build_and_run.sh) | Passed 64 core + 4 platform tests without Google credentials. |
 | REL03 | Missing developer OAuth configuration | [auth](../Packages/CalendarCore/Sources/CalendarPlatform/Authentication/GoogleAuthorization.swift), [account](../dayfold/dayfold/Features/Accounts/AccountSetupView.swift) | Passed [missingConfigurationAndLockedKeychainRemainRecoverable](../Packages/CalendarCore/Tests/CalendarPlatformTests/PlatformTests.swift); MAN07 setup guidance observed; demo works. |
 | REL04 | Run .app through normal Launch Services | [app](../dayfold/dayfold/App/DayfoldApp.swift), [build](../script/build_and_run.sh) | Partial MAN01–MAN09 real bundle checks; notifications/hotkey/Dock cases remain open (N/P). |

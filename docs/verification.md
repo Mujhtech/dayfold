@@ -12,6 +12,7 @@ Recorded 5–6 November 2026 on Apple M2 Pro, 16 GiB RAM, macOS 27.2 (26B123), X
 | `./script/test.sh --ui` | Test target compiled; UI runner initialization timed out. Tests did not execute successfully. Developer Mode is disabled; owner elected to retain current permissions. | `.build/evidence/ui-tests.log`, `UITests-1.xcresult` |
 | `./script/archive.sh --local` | Passed; universal arm64/x86_64 Release archive. | `.build/evidence/archive.log`, `.build/archives/Dayfold-local.xcarchive` |
 | `codesign --verify --deep --strict` on the archived app | Passed. Release signature is ad hoc with runtime flag, no team or debug entitlement. | Archive inspected 6 November; entitlements described in release.md. |
+| Fresh local checkout of e166b10; `./script/build_and_run.sh --build` | Passed with fresh products/intermediates. Reused only the downloaded pinned SourcePackages cache; no OAuth override. Checkout stayed clean. This was not a cold-network package download test. | `.build/evidence/clean-checkout.log`, `clean-checkout-build.log` |
 
 Both app-owned English Localizable.strings and dependency resources are packaged. The build has an informational App Intents metadata warning because there is no AppIntents dependency; no app source compile errors remain.
 
@@ -48,8 +49,9 @@ All records below use the actual app bundle and explicitly labeled fictional dem
 | MAN08 Appearance | Dark and light appearance inspected at different times; event text/source accents and hidden segmented-control label corrected. High contrast, RTL, reduced-motion settings and VoiceOver interaction not exercised. |
 | MAN09 Resident lifecycle | Closed Settings and the main window. Accessibility reported no windows while app inventory reported Dayfold still running. Dock reopening check did not complete; do not infer that it passed. |
 | MAN10 Logging | Observed local store-ready, sync duration, save and mutation-state logs. Format contains categories/counts/timings, no event titles, raw URLs, guests or credentials. Live OAuth/error flows were not logged/tested. |
+| MAN11 Final launch | Rebuilt/launched final source with `--demo`; persisted event appeared in week and agenda. Captured agenda, then restored the week view. |
 
-Screenshots: [week](screenshots/week.png), [month](screenshots/month.png), [editor](screenshots/editor.png), [quick entry](screenshots/quick-entry.png), [accounts](screenshots/accounts.png), [conflict](screenshots/conflict.png). They are unedited app captures containing fictional data. Agenda and companion interactions were observed, but dedicated screenshots are still missing.
+Screenshots: [week](screenshots/week.png), [month](screenshots/month.png), [agenda](screenshots/agenda.png), [editor](screenshots/editor.png), [quick entry](screenshots/quick-entry.png), [accounts](screenshots/accounts.png), [conflict](screenshots/conflict.png). They are unedited app captures containing fictional data. Companion interaction was observed, but its dedicated screenshot is still missing.
 
 ## Remaining prerequisites and evidence
 
