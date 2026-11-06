@@ -1,0 +1,3614 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@"
+          }
+        }
+      }
+    },
+    "%@ · UTC%@%lf": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · UTC%@%lf"
+          }
+        }
+      }
+    },
+    "%@. This change may send invitations or updates. Offline changes send when they synchronize.%@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. This change may send invitations or updates. Offline changes send when they synchronize.%@"
+          }
+        }
+      }
+    },
+    "%lld": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        }
+      }
+    },
+    "%lld downloaded date windows · %lld pending changes · %lld drafts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld downloaded date windows · %lld pending changes · %lld drafts"
+          }
+        }
+      }
+    },
+    "%lld events": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld events"
+          }
+        }
+      }
+    },
+    "%lld minutes before": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld minutes before"
+          }
+        }
+      }
+    },
+    "%lld occurrences": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld occurrences"
+          }
+        }
+      }
+    },
+    "%lld pending": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld pending"
+          }
+        }
+      }
+    },
+    "+%lld\nevents": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld\nevents"
+          }
+        }
+      }
+    },
+    "+%lld more": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld more"
+          }
+        }
+      }
+    },
+    "A little more room\nfor your day.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A little more room\nfor your day."
+          }
+        }
+      }
+    },
+    "Accept": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accept"
+          }
+        }
+      }
+    },
+    "Account": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        }
+      }
+    },
+    "Account / Calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account / Calendar"
+          }
+        }
+      }
+    },
+    "Accounts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accounts"
+          }
+        }
+      }
+    },
+    "Add Account": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Account"
+          }
+        }
+      }
+    },
+    "Add Google Account": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Google Account"
+          }
+        }
+      }
+    },
+    "Advanced": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advanced"
+          }
+        }
+      }
+    },
+    "After count": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After count"
+          }
+        }
+      }
+    },
+    "All": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        }
+      }
+    },
+    "All accounts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All accounts"
+          }
+        }
+      }
+    },
+    "All calendars": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All calendars"
+          }
+        }
+      }
+    },
+    "All caught up": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All caught up"
+          }
+        }
+      }
+    },
+    "All day": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All day"
+          }
+        }
+      }
+    },
+    "All-day reminder hour: %lld:00 in calendar zone": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All-day reminder hour: %lld:00 in calendar zone"
+          }
+        }
+      }
+    },
+    "Appearance": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appearance"
+          }
+        }
+      }
+    },
+    "Appearance & time zones": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appearance & time zones"
+          }
+        }
+      }
+    },
+    "Apply my change to latest": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apply my change to latest"
+          }
+        }
+      }
+    },
+    "Availability": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Availability"
+          }
+        }
+      }
+    },
+    "Back to agenda": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back to agenda"
+          }
+        }
+      }
+    },
+    "Busy": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Busy"
+          }
+        }
+      }
+    },
+    "Cache & recovery": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache & recovery"
+          }
+        }
+      }
+    },
+    "Cached events become stale. Pending edits remain saved and will wait until synchronization is enabled again. Hiding a calendar in the sidebar only changes visibility.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cached events become stale. Pending edits remain saved and will wait until synchronization is enabled again. Hiding a calendar in the sidebar only changes visibility."
+          }
+        }
+      }
+    },
+    "Cached · retry pending": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cached · retry pending"
+          }
+        }
+      }
+    },
+    "Calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar"
+          }
+        }
+      }
+    },
+    "Calendar data stays in Google and this Mac's app container. OAuth credentials are kept in Keychain. Dayfold has no analytics or remote content storage. Local cache uses OS protections; it is not separately encrypted.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar data stays in Google and this Mac's app container. OAuth credentials are kept in Keychain. Dayfold has no analytics or remote content storage. Local cache uses OS protections; it is not separately encrypted."
+          }
+        }
+      }
+    },
+    "Calendar default": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar default"
+          }
+        }
+      }
+    },
+    "Calendar defaults": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar defaults"
+          }
+        }
+      }
+    },
+    "Calendar status": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar status"
+          }
+        }
+      }
+    },
+    "Calendar view": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar view"
+          }
+        }
+      }
+    },
+    "Calendars": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendars"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "Cancel sign-in": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel sign-in"
+          }
+        }
+      }
+    },
+    "Change the entire series?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the entire series?"
+          }
+        }
+      }
+    },
+    "Changes use %@.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changes use %@."
+          }
+        }
+      }
+    },
+    "Changing display zones never changes your Google events.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changing display zones never changes your Google events."
+          }
+        }
+      }
+    },
+    "Choose a calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a calendar"
+          }
+        }
+      }
+    },
+    "Choose a writable calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a writable calendar"
+          }
+        }
+      }
+    },
+    "Choose an offset for this repeated time": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose an offset for this repeated time"
+          }
+        }
+      }
+    },
+    "Choose another date or adjust the visible calendars.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose another date or adjust the visible calendars."
+          }
+        }
+      }
+    },
+    "Choose date & time…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose date & time…"
+          }
+        }
+      }
+    },
+    "Choose recurrence scope": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose recurrence scope"
+          }
+        }
+      }
+    },
+    "Choose the calendars to download. Visibility in the sidebar can change independently later.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose the calendars to download. Visibility in the sidebar can change independently later."
+          }
+        }
+      }
+    },
+    "Close and keep draft": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close and keep draft"
+          }
+        }
+      }
+    },
+    "Connect Google Account": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect Google Account"
+          }
+        }
+      }
+    },
+    "Connection setup: add a Google Desktop OAuth client to Config/OAuth.local.json and rebuild. Demo is available without credentials.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connection setup: add a Google Desktop OAuth client to Config/OAuth.local.json and rebuild. Demo is available without credentials."
+          }
+        }
+      }
+    },
+    "Copy preserved files…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy preserved files…"
+          }
+        }
+      }
+    },
+    "Correct details…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correct details…"
+          }
+        }
+      }
+    },
+    "Correcting the rejected change. Saving reuses the original event identity.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correcting the rejected change. Saving reuses the original event identity."
+          }
+        }
+      }
+    },
+    "Countdown": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Countdown"
+          }
+        }
+      }
+    },
+    "Custom popup": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom popup"
+          }
+        }
+      }
+    },
+    "Custom recurrence · preserved": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom recurrence · preserved"
+          }
+        }
+      }
+    },
+    "DEMO": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DEMO"
+          }
+        }
+      }
+    },
+    "Daily": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily"
+          }
+        }
+      }
+    },
+    "Dark": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dark"
+          }
+        }
+      }
+    },
+    "Date": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        }
+      }
+    },
+    "Date & time": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date & time"
+          }
+        }
+      }
+    },
+    "Day %lld": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %lld"
+          }
+        }
+      }
+    },
+    "Day of month": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day of month"
+          }
+        }
+      }
+    },
+    "Dayfold": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dayfold"
+          }
+        }
+      }
+    },
+    "Dayfold 1.0 · macOS %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dayfold 1.0 · macOS %@"
+          }
+        }
+      }
+    },
+    "Dayfold Help": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dayfold Help"
+          }
+        }
+      }
+    },
+    "Decline": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decline"
+          }
+        }
+      }
+    },
+    "Declined": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Declined"
+          }
+        }
+      }
+    },
+    "Default calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Default calendar"
+          }
+        }
+      }
+    },
+    "Default duration: %lld minutes": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Default duration: %lld minutes"
+          }
+        }
+      }
+    },
+    "Delete %@?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete %@?"
+          }
+        }
+      }
+    },
+    "Delete entire series": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete entire series"
+          }
+        }
+      }
+    },
+    "Delete entire series…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete entire series…"
+          }
+        }
+      }
+    },
+    "Delete event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete event"
+          }
+        }
+      }
+    },
+    "Delete event…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete event…"
+          }
+        }
+      }
+    },
+    "Delete this occurrence": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this occurrence"
+          }
+        }
+      }
+    },
+    "Deliver local event reminders": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deliver local event reminders"
+          }
+        }
+      }
+    },
+    "Demo does not schedule event reminders.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo does not schedule event reminders."
+          }
+        }
+      }
+    },
+    "Demo stores the request only; it does not create a real Meet link.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo stores the request only; it does not create a real Meet link."
+          }
+        }
+      }
+    },
+    "Demo uses a local fake provider.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo uses a local fake provider."
+          }
+        }
+      }
+    },
+    "Description": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Description"
+          }
+        }
+      }
+    },
+    "Details": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Details"
+          }
+        }
+      }
+    },
+    "Diagnostics": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diagnostics"
+          }
+        }
+      }
+    },
+    "Direct connection to Google. A private cache on your Mac.\nNo Dayfold account or cloud storage.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direct connection to Google. A private cache on your Mac.\nNo Dayfold account or cloud storage."
+          }
+        }
+      }
+    },
+    "Disable": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disable"
+          }
+        }
+      }
+    },
+    "Discard": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discard"
+          }
+        }
+      }
+    },
+    "Discard Draft": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discard Draft"
+          }
+        }
+      }
+    },
+    "Discard local work and disconnect": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discard local work and disconnect"
+          }
+        }
+      }
+    },
+    "Discard local work and reset": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discard local work and reset"
+          }
+        }
+      }
+    },
+    "Disconnect this account?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnect this account?"
+          }
+        }
+      }
+    },
+    "Disconnect…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnect…"
+          }
+        }
+      }
+    },
+    "Display zone (device or IANA identifier)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Display zone (device or IANA identifier)"
+          }
+        }
+      }
+    },
+    "Does not repeat": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Does not repeat"
+          }
+        }
+      }
+    },
+    "Drafts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drafts"
+          }
+        }
+      }
+    },
+    "Drag to resize, or edit the end time": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drag to resize, or edit the end time"
+          }
+        }
+      }
+    },
+    "Duplicate to Calendar…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duplicate to Calendar…"
+          }
+        }
+      }
+    },
+    "Duplicate to another calendar…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duplicate to another calendar…"
+          }
+        }
+      }
+    },
+    "Edit Event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Event"
+          }
+        }
+      }
+    },
+    "Edit Event…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Event…"
+          }
+        }
+      }
+    },
+    "Edit entire series": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit entire series"
+          }
+        }
+      }
+    },
+    "Edit event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit event"
+          }
+        }
+      }
+    },
+    "Edit local label…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit local label…"
+          }
+        }
+      }
+    },
+    "Edit this occurrence": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit this occurrence"
+          }
+        }
+      }
+    },
+    "Edit this occurrence…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit this occurrence…"
+          }
+        }
+      }
+    },
+    "Enable": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable"
+          }
+        }
+      }
+    },
+    "Enable notifications…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable notifications…"
+          }
+        }
+      }
+    },
+    "End time zone (IANA)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End time zone (IANA)"
+          }
+        }
+      }
+    },
+    "Ends": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ends"
+          }
+        }
+      }
+    },
+    "English parser · dates and times are always previewed. Use YYYY-MM-DD for unambiguous dates.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English parser · dates and times are always previewed. Use YYYY-MM-DD for unambiguous dates."
+          }
+        }
+      }
+    },
+    "Entire series": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entire series"
+          }
+        }
+      }
+    },
+    "Event title": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Event title"
+          }
+        }
+      }
+    },
+    "Event unavailable": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Event unavailable"
+          }
+        }
+      }
+    },
+    "Event zone: %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Event zone: %@"
+          }
+        }
+      }
+    },
+    "Event zones: %@ → %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Event zones: %@ → %@"
+          }
+        }
+      }
+    },
+    "Events for this day have not been downloaded.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Events for this day have not been downloaded."
+          }
+        }
+      }
+    },
+    "Every %lld": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every %lld"
+          }
+        }
+      }
+    },
+    "Explore Demo": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore Demo"
+          }
+        }
+      }
+    },
+    "Export pending changes and drafts…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export pending changes and drafts…"
+          }
+        }
+      }
+    },
+    "Export pending work, then disconnect": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export pending work, then disconnect"
+          }
+        }
+      }
+    },
+    "Export pending work, then reset": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export pending work, then reset"
+          }
+        }
+      }
+    },
+    "Export redacted diagnostics…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export redacted diagnostics…"
+          }
+        }
+      }
+    },
+    "Export…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export…"
+          }
+        }
+      }
+    },
+    "Fictional calendars. Changes stay on this Mac.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fictional calendars. Changes stay on this Mac."
+          }
+        }
+      }
+    },
+    "First": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First"
+          }
+        }
+      }
+    },
+    "Fourth": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fourth"
+          }
+        }
+      }
+    },
+    "Free": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free"
+          }
+        }
+      }
+    },
+    "General": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "General"
+          }
+        }
+      }
+    },
+    "Global shortcut": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Global shortcut"
+          }
+        }
+      }
+    },
+    "Google account identity is always shown before a write.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google account identity is always shown before a write."
+          }
+        }
+      }
+    },
+    "Google email reminders are delivered by Google. Previously scheduled system reminders may appear after quitting; they cannot refresh while Dayfold is closed. Delivery depends on macOS, Focus, and sleep.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google email reminders are delivered by Google. Previously scheduled system reminders may appear after quitting; they cannot refresh while Dayfold is closed. Delivery depends on macOS, Focus, and sleep."
+          }
+        }
+      }
+    },
+    "Google expands repeating events. Offline display covers downloaded dates only.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google expands repeating events. Offline display covers downloaded dates only."
+          }
+        }
+      }
+    },
+    "Google identity": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google identity"
+          }
+        }
+      }
+    },
+    "Google is creating the meeting link.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google is creating the meeting link."
+          }
+        }
+      }
+    },
+    "Google: %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google: %@"
+          }
+        }
+      }
+    },
+    "Guests": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guests"
+          }
+        }
+      }
+    },
+    "Guests (comma-separated emails)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guests (comma-separated emails)"
+          }
+        }
+      }
+    },
+    "Icon only": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Icon only"
+          }
+        }
+      }
+    },
+    "Include tentative meetings in Up Next": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Include tentative meetings in Up Next"
+          }
+        }
+      }
+    },
+    "Includes versions, status categories, and counts. No tokens, event text, guest addresses, or meeting links.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Includes versions, status categories, and counts. No tokens, event text, guest addresses, or meeting links."
+          }
+        }
+      }
+    },
+    "Invitation": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invitation"
+          }
+        }
+      }
+    },
+    "Invitations": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invitations"
+          }
+        }
+      }
+    },
+    "Isolated demo store": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Isolated demo store"
+          }
+        }
+      }
+    },
+    "Join": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Join"
+          }
+        }
+      }
+    },
+    "Join · %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Join · %@"
+          }
+        }
+      }
+    },
+    "Join…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Join…"
+          }
+        }
+      }
+    },
+    "Keep Draft & Close": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep Draft & Close"
+          }
+        }
+      }
+    },
+    "Keep Google version": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep Google version"
+          }
+        }
+      }
+    },
+    "Keep existing reminders": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep existing reminders"
+          }
+        }
+      }
+    },
+    "Label": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Label"
+          }
+        }
+      }
+    },
+    "Last": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last"
+          }
+        }
+      }
+    },
+    "Last day (inclusive)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last day (inclusive)"
+          }
+        }
+      }
+    },
+    "Last refreshed %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last refreshed %@"
+          }
+        }
+      }
+    },
+    "Launch at login": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Launch at login"
+          }
+        }
+      }
+    },
+    "Light": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light"
+          }
+        }
+      }
+    },
+    "Local account label": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local account label"
+          }
+        }
+      }
+    },
+    "Local work is retained until you resolve or discard it.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local work is retained until you resolve or discard it."
+          }
+        }
+      }
+    },
+    "Location or meeting URL": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location or meeting URL"
+          }
+        }
+      }
+    },
+    "Lunch Friday at 1pm for 45 minutes": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lunch Friday at 1pm for 45 minutes"
+          }
+        }
+      }
+    },
+    "Make room for your calendars": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make room for your calendars"
+          }
+        }
+      }
+    },
+    "Maybe": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maybe"
+          }
+        }
+      }
+    },
+    "Menu bar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu bar"
+          }
+        }
+      }
+    },
+    "Monday": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monday"
+          }
+        }
+      }
+    },
+    "Monthly": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly"
+          }
+        }
+      }
+    },
+    "Monthly pattern": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly pattern"
+          }
+        }
+      }
+    },
+    "NOW": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NOW"
+          }
+        }
+      }
+    },
+    "Name": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
+        }
+      }
+    },
+    "Never": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Never"
+          }
+        }
+      }
+    },
+    "New Event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New Event"
+          }
+        }
+      }
+    },
+    "New event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New event"
+          }
+        }
+      }
+    },
+    "New event (⌘N)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New event (⌘N)"
+          }
+        }
+      }
+    },
+    "New events use": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New events use"
+          }
+        }
+      }
+    },
+    "Next": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next"
+          }
+        }
+      }
+    },
+    "Next meeting time": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next meeting time"
+          }
+        }
+      }
+    },
+    "Next range": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next range"
+          }
+        }
+      }
+    },
+    "No drafts or pending changes on this Mac.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No drafts or pending changes on this Mac."
+          }
+        }
+      }
+    },
+    "No visible events in this downloaded day.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No visible events in this downloaded day."
+          }
+        }
+      }
+    },
+    "None": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None"
+          }
+        }
+      }
+    },
+    "Not downloaded": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not downloaded"
+          }
+        }
+      }
+    },
+    "Notifications": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications"
+          }
+        }
+      }
+    },
+    "OK": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "Occurrence": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Occurrence"
+          }
+        }
+      }
+    },
+    "Offline": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline"
+          }
+        }
+      }
+    },
+    "Offline recurrence is limited to downloaded ranges. Structural recurring edits require online review. This and following, busy mirroring, other providers, billing, and automatic updates are not enabled.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline recurrence is limited to downloaded ranges. Structural recurring edits require online review. This and following, busy mirroring, other providers, billing, and automatic updates are not enabled."
+          }
+        }
+      }
+    },
+    "On date": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On date"
+          }
+        }
+      }
+    },
+    "Only this occurrence changes. The series keeps its original schedule.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only this occurrence changes. The series keeps its original schedule."
+          }
+        }
+      }
+    },
+    "Open Calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Calendar"
+          }
+        }
+      }
+    },
+    "Open in Calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open in Calendar"
+          }
+        }
+      }
+    },
+    "Open in Google Calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open in Google Calendar"
+          }
+        }
+      }
+    },
+    "Opening your calendars…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opening your calendars…"
+          }
+        }
+      }
+    },
+    "Ordinal weekday": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordinal weekday"
+          }
+        }
+      }
+    },
+    "Pending Changes": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pending Changes"
+          }
+        }
+      }
+    },
+    "Pending synchronization": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pending synchronization"
+          }
+        }
+      }
+    },
+    "Permission: %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permission: %@"
+          }
+        }
+      }
+    },
+    "Preserve files and start fresh": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preserve files and start fresh"
+          }
+        }
+      }
+    },
+    "Preserve this store and start a fresh cache?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preserve this store and start a fresh cache?"
+          }
+        }
+      }
+    },
+    "Preview only. Review before saving.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preview only. Review before saving."
+          }
+        }
+      }
+    },
+    "Preview: Untitled Event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preview: Untitled Event"
+          }
+        }
+      }
+    },
+    "Previous": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous"
+          }
+        }
+      }
+    },
+    "Previous range": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous range"
+          }
+        }
+      }
+    },
+    "Privacy": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
+          }
+        }
+      }
+    },
+    "Private": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Private"
+          }
+        }
+      }
+    },
+    "Public": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Public"
+          }
+        }
+      }
+    },
+    "Queue reversal": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queue reversal"
+          }
+        }
+      }
+    },
+    "Quick Add": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Add"
+          }
+        }
+      }
+    },
+    "Quick Entry": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Entry"
+          }
+        }
+      }
+    },
+    "Quick entry": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick entry"
+          }
+        }
+      }
+    },
+    "Quit": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quit"
+          }
+        }
+      }
+    },
+    "Rebuild Google's cached data?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rebuild Google's cached data?"
+          }
+        }
+      }
+    },
+    "Rebuild and refresh": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rebuild and refresh"
+          }
+        }
+      }
+    },
+    "Rebuild remote cache…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rebuild remote cache…"
+          }
+        }
+      }
+    },
+    "Rebuilding preserves drafts, pending changes, and conflicts. Existing cache stays visible until complete replacement pages arrive.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rebuilding preserves drafts, pending changes, and conflicts. Existing cache stays visible until complete replacement pages arrive."
+          }
+        }
+      }
+    },
+    "Recent confirmed changes": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recent confirmed changes"
+          }
+        }
+      }
+    },
+    "Reconnect": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnect"
+          }
+        }
+      }
+    },
+    "Redo": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redo"
+          }
+        }
+      }
+    },
+    "Redo change…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redo change…"
+          }
+        }
+      }
+    },
+    "Refresh Calendars": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh Calendars"
+          }
+        }
+      }
+    },
+    "Refresh Now": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh Now"
+          }
+        }
+      }
+    },
+    "Reminder": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder"
+          }
+        }
+      }
+    },
+    "Reminders": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders"
+          }
+        }
+      }
+    },
+    "Remove this store's local data?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove this store's local data?"
+          }
+        }
+      }
+    },
+    "Removes connected accounts, credentials, cache, drafts, pending changes, reminders, and preferences for this store. Google events remain in Google. A request already sent to Google may still finish. Demo and Google stores are separate.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Removes connected accounts, credentials, cache, drafts, pending changes, reminders, and preferences for this store. Google events remain in Google. A request already sent to Google may still finish. Demo and Google stores are separate."
+          }
+        }
+      }
+    },
+    "Removes this account's credentials, cache, reminders, drafts, and pending changes from this Mac. Google events remain in Google. Export first to preserve local work.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Removes this account's credentials, cache, reminders, drafts, and pending changes from this Mac. Google events remain in Google. Export first to preserve local work."
+          }
+        }
+      }
+    },
+    "Repeating event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repeating event"
+          }
+        }
+      }
+    },
+    "Repeats": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repeats"
+          }
+        }
+      }
+    },
+    "Request a Google Meet link": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request a Google Meet link"
+          }
+        }
+      }
+    },
+    "Request a replacement Google Meet link": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request a replacement Google Meet link"
+          }
+        }
+      }
+    },
+    "Requires online review before sending": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Requires online review before sending"
+          }
+        }
+      }
+    },
+    "Reset this local store…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset this local store…"
+          }
+        }
+      }
+    },
+    "Respond for %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respond for %@"
+          }
+        }
+      }
+    },
+    "Respond for entire series": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respond for entire series"
+          }
+        }
+      }
+    },
+    "Respond for this occurrence": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respond for this occurrence"
+          }
+        }
+      }
+    },
+    "Restore as new personal draft…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore as new personal draft…"
+          }
+        }
+      }
+    },
+    "Restore last view": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore last view"
+          }
+        }
+      }
+    },
+    "Resume": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume"
+          }
+        }
+      }
+    },
+    "Retry": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry"
+          }
+        }
+      }
+    },
+    "Reverse this confirmed change?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reverse this confirmed change?"
+          }
+        }
+      }
+    },
+    "Review Event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review Event"
+          }
+        }
+      }
+    },
+    "Review online and save series": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review online and save series"
+          }
+        }
+      }
+    },
+    "Saturday": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saturday"
+          }
+        }
+      }
+    },
+    "Save": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save"
+          }
+        }
+      }
+    },
+    "Save Draft": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save Draft"
+          }
+        }
+      }
+    },
+    "Save Event": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save Event"
+          }
+        }
+      }
+    },
+    "Save and send Google updates": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and send Google updates"
+          }
+        }
+      }
+    },
+    "Save as new personal event…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save as new personal event…"
+          }
+        }
+      }
+    },
+    "Save current set": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save current set"
+          }
+        }
+      }
+    },
+    "Save visibility set": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save visibility set"
+          }
+        }
+      }
+    },
+    "Saved on this Mac": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved on this Mac"
+          }
+        }
+      }
+    },
+    "Saving will send Google updates to guests, including when a queued change reconnects.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saving will send Google updates to guests, including when a queued change reconnects."
+          }
+        }
+      }
+    },
+    "Saving…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saving…"
+          }
+        }
+      }
+    },
+    "Search Calendar": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search Calendar"
+          }
+        }
+      }
+    },
+    "Search covers permitted data downloaded for the selected dates.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search covers permitted data downloaded for the selected dates."
+          }
+        }
+      }
+    },
+    "Search downloaded events": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search downloaded events"
+          }
+        }
+      }
+    },
+    "Search within this downloaded date range": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search within this downloaded date range"
+          }
+        }
+      }
+    },
+    "Second": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Second"
+          }
+        }
+      }
+    },
+    "Secondary zone (optional)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Secondary zone (optional)"
+          }
+        }
+      }
+    },
+    "Send response": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send response"
+          }
+        }
+      }
+    },
+    "Send updates to guests?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send updates to guests?"
+          }
+        }
+      }
+    },
+    "Send your response?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send your response?"
+          }
+        }
+      }
+    },
+    "Show %lld overlapping events in the agenda": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show %lld overlapping events in the agenda"
+          }
+        }
+      }
+    },
+    "Show declined events": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show declined events"
+          }
+        }
+      }
+    },
+    "Show weekends": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show weekends"
+          }
+        }
+      }
+    },
+    "Shown in %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shown in %@"
+          }
+        }
+      }
+    },
+    "Simulate conflicting edits": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulate conflicting edits"
+          }
+        }
+      }
+    },
+    "Snooze: %lld minutes": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snooze: %lld minutes"
+          }
+        }
+      }
+    },
+    "Start a fresh cache…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a fresh cache…"
+          }
+        }
+      }
+    },
+    "Start with": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start with"
+          }
+        }
+      }
+    },
+    "Starts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starts"
+          }
+        }
+      }
+    },
+    "Status": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status"
+          }
+        }
+      }
+    },
+    "Stop synchronizing this calendar?": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop synchronizing this calendar?"
+          }
+        }
+      }
+    },
+    "Stop syncing": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop syncing"
+          }
+        }
+      }
+    },
+    "Sunday": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunday"
+          }
+        }
+      }
+    },
+    "Switch to Google accounts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch to Google accounts"
+          }
+        }
+      }
+    },
+    "Synchronization status": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronization status"
+          }
+        }
+      }
+    },
+    "Synchronize": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronize"
+          }
+        }
+      }
+    },
+    "System": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
+          }
+        }
+      }
+    },
+    "System Settings…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System Settings…"
+          }
+        }
+      }
+    },
+    "System locale": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System locale"
+          }
+        }
+      }
+    },
+    "Tentative": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tentative"
+          }
+        }
+      }
+    },
+    "The entire existing store, including drafts and pending changes, will be moved to a preserved folder. The new cache requires reconnecting your accounts. Unsent work remains in the preserved files for recovery and is not sent or deleted from Google.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The entire existing store, including drafts and pending changes, will be moved to a preserved folder. The new cache requires reconnecting your accounts. Unsent work remains in the preserved files for recovery and is not sent or deleted from Google."
+          }
+        }
+      }
+    },
+    "The event is saved, but meeting-link creation failed. Edit the event to request a replacement.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The event is saved, but meeting-link creation failed. Edit the event to request a replacement."
+          }
+        }
+      }
+    },
+    "The event may have been removed or its calendar is no longer available.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The event may have been removed or its calendar is no longer available."
+          }
+        }
+      }
+    },
+    "The link appears after Google confirms creation.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The link appears after Google confirms creation."
+          }
+        }
+      }
+    },
+    "The original series start and all future occurrences are affected. Existing exceptions remain with Google. %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The original series start and all future occurrences are affected. Existing exceptions remain with Google. %@"
+          }
+        }
+      }
+    },
+    "Third": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Third"
+          }
+        }
+      }
+    },
+    "This and following is handled in Google Calendar. Dayfold does not split a series into multiple remote operations.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This and following is handled in Google Calendar. Dayfold does not split a series into multiple remote operations."
+          }
+        }
+      }
+    },
+    "This and following · Open Google": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This and following · Open Google"
+          }
+        }
+      }
+    },
+    "This name is used on this Mac. Your Google account identity stays visible in account settings.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This name is used on this Mac. Your Google account identity stays visible in account settings."
+          }
+        }
+      }
+    },
+    "This occurrence": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This occurrence"
+          }
+        }
+      }
+    },
+    "Through": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Through"
+          }
+        }
+      }
+    },
+    "Through %@ · %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Through %@ · %@"
+          }
+        }
+      }
+    },
+    "Time zone (IANA)": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time zone (IANA)"
+          }
+        }
+      }
+    },
+    "Timeline density": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timeline density"
+          }
+        }
+      }
+    },
+    "Today": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        }
+      }
+    },
+    "UP NEXT": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UP NEXT"
+          }
+        }
+      }
+    },
+    "Undo": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo"
+          }
+        }
+      }
+    },
+    "Undo change…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo change…"
+          }
+        }
+      }
+    },
+    "Undo queued change": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo queued change"
+          }
+        }
+      }
+    },
+    "Use Google accounts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use Google accounts"
+          }
+        }
+      }
+    },
+    "Use “Busy event” for notification titles": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use “Busy event” for notification titles"
+          }
+        }
+      }
+    },
+    "Uses %@. Only the invited account's response changes.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uses %@. Only the invited account's response changes."
+          }
+        }
+      }
+    },
+    "Uses %@. Only your invited attendee response changes.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uses %@. Only your invited attendee response changes."
+          }
+        }
+      }
+    },
+    "VISIBILITY SETS": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VISIBILITY SETS"
+          }
+        }
+      }
+    },
+    "Visibility": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visibility"
+          }
+        }
+      }
+    },
+    "Waiting for Google…": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for Google…"
+          }
+        }
+      }
+    },
+    "Waiting for an earlier change to this event. Resolve that change first.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for an earlier change to this event. Resolve that change first."
+          }
+        }
+      }
+    },
+    "Week starts": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week starts"
+          }
+        }
+      }
+    },
+    "Weekly": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly"
+          }
+        }
+      }
+    },
+    "Work, personal, and everything in between.\nBring your Google calendars together in Dayfold.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Work, personal, and everything in between.\nBring your Google calendars together in Dayfold."
+          }
+        }
+      }
+    },
+    "Workday begins: %lld:00": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workday begins: %lld:00"
+          }
+        }
+      }
+    },
+    "Workday ends: %lld:00": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workday ends: %lld:00"
+          }
+        }
+      }
+    },
+    "Yearly": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yearly"
+          }
+        }
+      }
+    },
+    "You can always open Quick Entry from the Calendar menu. Shortcut registration requires no Accessibility permission.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can always open Quick Entry from the Calendar menu. Shortcut registration requires no Accessibility permission."
+          }
+        }
+      }
+    },
+    "You can copy the preserved files before trying a fresh cache. Unsent work is never replayed automatically.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can copy the preserved files before trying a fresh cache. Unsent work is never replayed automatically."
+          }
+        }
+      }
+    },
+    "Your browser may be signed into a different account.": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your browser may be signed into a different account."
+          }
+        }
+      }
+    },
+    "Your data is preserved": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your data is preserved"
+          }
+        }
+      }
+    },
+    "Your day, at a glance": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your day, at a glance"
+          }
+        }
+      }
+    },
+    "Your response · %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your response · %@"
+          }
+        }
+      }
+    },
+    "Yours: %@": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yours: %@"
+          }
+        }
+      }
+    },
+    "all-day": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "all-day"
+          }
+        }
+      }
+    },
+    "· Showing cached events": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· Showing cached events"
+          }
+        }
+      }
+    },
+    "· Some dates have not been downloaded": {
+      "extractionState": "automatic",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· Some dates have not been downloaded"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

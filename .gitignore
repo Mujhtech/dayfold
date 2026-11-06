@@ -1,0 +1,13 @@
+.DS_Store
+.build/
+**/.build/
+**/xcuserdata/
+**/.swiftpm/
+Config/OAuth.local.json
+dayfold/dayfold/Resources/OAuth.json
+dist/
+*.xcresult
+.codex/*
+!.codex/environments/
+.codex/environments/*
+!.codex/environments/environment.toml

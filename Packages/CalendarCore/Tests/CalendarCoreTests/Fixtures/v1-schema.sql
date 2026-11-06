@@ -1,0 +1,18 @@
+CREATE TABLE grdb_migrations (identifier TEXT NOT NULL PRIMARY KEY);
+INSERT INTO grdb_migrations VALUES ('v1-local-replica-and-intent');
+CREATE TABLE accounts (id TEXT PRIMARY KEY, subject TEXT NOT NULL, issuer TEXT NOT NULL, payload BLOB NOT NULL, UNIQUE(issuer, subject));
+CREATE TABLE calendars (id TEXT PRIMARY KEY, account TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE, payload BLOB NOT NULL);
+CREATE TABLE events (id TEXT NOT NULL, calendar TEXT NOT NULL REFERENCES calendars(id) ON DELETE CASCADE, kind TEXT NOT NULL, start REAL, end REAL, payload BLOB NOT NULL, PRIMARY KEY(id,kind));
+CREATE INDEX events_range ON events(calendar,kind,start,end);
+CREATE TABLE cursors (calendar TEXT PRIMARY KEY REFERENCES calendars(id) ON DELETE CASCADE, token TEXT NOT NULL, fingerprint TEXT NOT NULL);
+CREATE TABLE staging (run TEXT NOT NULL, id TEXT NOT NULL, calendar TEXT NOT NULL REFERENCES calendars(id) ON DELETE CASCADE, payload BLOB NOT NULL, PRIMARY KEY(run,id));
+CREATE TABLE coverage (id TEXT PRIMARY KEY, calendar TEXT NOT NULL REFERENCES calendars(id) ON DELETE CASCADE, payload BLOB NOT NULL);
+CREATE TABLE membership (window TEXT NOT NULL REFERENCES coverage(id) ON DELETE CASCADE, event TEXT NOT NULL, PRIMARY KEY(window,event));
+CREATE TABLE drafts (id TEXT PRIMARY KEY, payload BLOB NOT NULL);
+CREATE TABLE mutations (id TEXT PRIMARY KEY, account TEXT NOT NULL, event TEXT NOT NULL, state TEXT NOT NULL, created REAL NOT NULL, payload BLOB NOT NULL);
+CREATE INDEX mutation_state ON mutations(state,created);
+CREATE TABLE conflicts (id TEXT PRIMARY KEY, payload BLOB NOT NULL);
+CREATE TABLE preferences (id TEXT PRIMARY KEY, payload BLOB NOT NULL);
+CREATE TABLE notification_ledger (id TEXT PRIMARY KEY, payload BLOB NOT NULL);
+CREATE VIRTUAL TABLE search_index USING fts5(id UNINDEXED, text, tokenize='unicode61');
+PRAGMA user_version = 1;

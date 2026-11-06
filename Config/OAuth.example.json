@@ -1,0 +1,5 @@
+{
+  "clientID": "",
+  "clientSecret": "",
+  "instructions": "Copy to Config/OAuth.local.json. Use a Google Desktop OAuth client. The desktop client secret is a public-client configuration value, not a server credential. Never put tokens here."
+}
