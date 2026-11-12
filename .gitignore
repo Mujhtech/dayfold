@@ -6,8 +6,23 @@
 Config/OAuth.local.json
 dayfold/dayfold/Resources/OAuth.json
 dist/
+backend/target/
+backend/.env
+backend/.env.local
+backend/secrets/
+__pycache__/
+*.py[cod]
 *.xcresult
 .codex/*
 !.codex/environments/
 .codex/environments/*
 !.codex/environments/environment.toml
+# Signing credentials and provisioning material stay outside version control.
+*.p8
+*.p12
+*.pfx
+*.mobileprovision
+*.provisionprofile
+# Deliberately public, never registered test-only keys; required by CI fixtures.
+!backend/crates/dayfold-apns/tests/fixtures/test-signing-key.p8
+!backend/crates/dayfold-apns/tests/fixtures/test-wrong-curve.p8

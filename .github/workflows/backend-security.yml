@@ -1,0 +1,55 @@
+name: Security regressions
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-boundaries:
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Exercise native credential and transport boundaries
+        run: ./script/test.sh
+      - name: Build the app without production credentials
+        run: ./script/build_and_run.sh --build
+  isolation-and-dependencies:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: dayfold_test
+          POSTGRES_PASSWORD: disposable-ci-only
+          POSTGRES_DB: dayfold_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U dayfold_test"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      DAYFOLD_TEST_DATABASE_URL: postgres://dayfold_test:disposable-ci-only@localhost:5432/dayfold_test
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install 1.96.0 --profile minimal --component rustfmt --component clippy
+      - name: Check formatting and compiler diagnostics
+        run: |
+          cargo +1.96.0 fmt --manifest-path backend/Cargo.toml --all -- --check
+          cargo +1.96.0 clippy --manifest-path backend/Cargo.toml --workspace --all-targets --locked -- -D warnings
+      - name: Exercise real database authorization and race regressions
+        run: cargo +1.96.0 test --manifest-path backend/Cargo.toml --workspace --locked -- --include-ignored
+      - name: Audit the dependency lockfile
+        run: |
+          cargo +1.96.0 install cargo-audit --version 0.22.2 --locked --root .build/security-tools
+          .build/security-tools/bin/cargo-audit audit --file backend/Cargo.lock

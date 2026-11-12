@@ -1,0 +1,13 @@
+[package]
+name = "dayfold-worker"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+dayfold-apns = { path = "../dayfold-apns" }
+dayfold-domain = { path = "../dayfold-domain" }
+dayfold-store = { path = "../dayfold-store" }
+chrono.workspace = true
+tokio.workspace = true
+tracing.workspace = true
