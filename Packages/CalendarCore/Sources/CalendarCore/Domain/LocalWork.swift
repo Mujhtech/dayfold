@@ -72,6 +72,10 @@ public struct RepositorySnapshot: Sendable {
     public var coverage: [CacheCoverage]
     public var recentChanges: [Mutation]
 }
+public enum DayfoldExperience: String, Codable, Sendable, CaseIterable {
+    case calendar, assistant
+}
+
 public struct Preferences: Codable, Equatable, Sendable {
     public var defaultCalendar: CalendarKey?
     public var defaultDuration = 30
@@ -93,9 +97,12 @@ public struct Preferences: Codable, Equatable, Sendable {
     public var parserLocale = "en_GB"
     public var savedSets: [String: Set<String>] = [:]
     public var startupView = "restore"
+    public var onboardingStep: String? = nil
+    public var experienceMode: DayfoldExperience = .calendar
+    public var assistantModel = "gpt-5.4-mini"
     public init() {}
     private enum CodingKeys: String, CodingKey {
-        case defaultCalendar, defaultDuration, weekStart, showWeekends, workStart, workEnd, hourHeight, displayZone, secondaryZone, appearance, menuStyle, includeTentative, showDeclined, notifications, privateNotifications, allDayHour, snoozeMinutes, parserLocale, savedSets, startupView
+        case defaultCalendar, defaultDuration, weekStart, showWeekends, workStart, workEnd, hourHeight, displayZone, secondaryZone, appearance, menuStyle, includeTentative, showDeclined, notifications, privateNotifications, allDayHour, snoozeMinutes, parserLocale, savedSets, startupView, onboardingStep, experienceMode, assistantModel
     }
     public init(from decoder: any Decoder) throws {
         self.init()
@@ -120,6 +127,9 @@ public struct Preferences: Codable, Equatable, Sendable {
         parserLocale = try c.decodeIfPresent(String.self, forKey: .parserLocale) ?? parserLocale
         savedSets = try c.decodeIfPresent([String: Set<String>].self, forKey: .savedSets) ?? savedSets
         startupView = try c.decodeIfPresent(String.self, forKey: .startupView) ?? startupView
+        onboardingStep = try c.decodeIfPresent(String.self, forKey: .onboardingStep)
+        experienceMode = try c.decodeIfPresent(String.self, forKey: .experienceMode).flatMap(DayfoldExperience.init(rawValue:)) ?? .calendar
+        assistantModel = try c.decodeIfPresent(String.self, forKey: .assistantModel) ?? assistantModel
     }
     public var timeZone: TimeZone { displayZone == "device" ? .current : TimeZone(identifier: displayZone) ?? .current }
 }

@@ -2,5 +2,5 @@ import Foundation
 
 public enum AppConfiguration {
     public static let name = "Dayfold"
-    public static let schemaVersion = 5
+    public static let schemaVersion = 6
 }

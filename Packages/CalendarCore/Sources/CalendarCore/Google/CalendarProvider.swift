@@ -64,17 +64,45 @@ public struct HTTPResponse: Sendable { public var data: Data; public var status:
 public protocol HTTPTransport: Sendable { func send(_ request: URLRequest) async throws -> HTTPResponse }
 public struct URLSessionTransport: HTTPTransport {
     private let session: URLSession
-    public init() {
-        let c = URLSessionConfiguration.ephemeral; c.urlCache = nil; c.requestCachePolicy = .reloadIgnoringLocalCacheData; c.timeoutIntervalForRequest = 30; c.timeoutIntervalForResource = 90
+    public init() { self.init(configuration: .ephemeral) }
+    init(configuration: URLSessionConfiguration) {
+        let c = configuration.copy() as! URLSessionConfiguration
+        // Accounts share this transport, but never cookies or implicit HTTP
+        // credentials. Each request carries only its own OAuth bearer.
+        c.urlCache = nil; c.urlCredentialStorage = nil; c.httpCookieStorage = nil
+        c.httpShouldSetCookies = false; c.httpCookieAcceptPolicy = .never
+        c.requestCachePolicy = .reloadIgnoringLocalCacheData
+        c.timeoutIntervalForRequest = 30; c.timeoutIntervalForResource = 90
         session = URLSession(configuration: c)
     }
     public func send(_ request: URLRequest) async throws -> HTTPResponse {
+        let policy = GoogleRequestPolicy()
         do {
-            let (data, response) = try await session.data(for: request)
-            guard let http = response as? HTTPURLResponse, data.count <= 32_000_000 else { throw ProviderError.malformed }
+            try Task.checkCancellation()
+            let (data, response) = try await session.data(for: request, delegate: policy)
+            try Task.checkCancellation()
+            guard !policy.rejectedRedirect, let http = response as? HTTPURLResponse,
+                  http.url == request.url, data.count <= 32_000_000 else { throw ProviderError.malformed }
             return HTTPResponse(data: data, status: http.statusCode, retryAfter: http.value(forHTTPHeaderField: "Retry-After"))
-        } catch is CancellationError { throw CancellationError() }
-        catch let e as ProviderError { throw e }
-        catch { throw ProviderError.network }
+        } catch {
+            if policy.rejectedRedirect { throw ProviderError.malformed }
+            if error is CancellationError || (error as? URLError)?.code == .cancelled { throw CancellationError() }
+            if let error = error as? ProviderError { throw error }
+            throw ProviderError.network
+        }
+    }
+}
+
+/// Authenticated Google reads and writes have fixed endpoints. Do not let a
+/// redirect forward either account credentials or an event body to another URL.
+private final class GoogleRequestPolicy: NSObject, URLSessionTaskDelegate, @unchecked Sendable {
+    private let lock = NSLock()
+    private var redirected = false
+    var rejectedRedirect: Bool { lock.withLock { redirected } }
+    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse,
+                    newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) {
+        lock.withLock { redirected = true }
+        completionHandler(nil)
+        task.cancel()
     }
 }

@@ -17,6 +17,16 @@ import Testing
     #expect(preferences.startupView == "restore" && preferences.showWeekends)
 }
 
+@Test func onboardingPreferencesPreserveLegacyStateAndResumeActiveStep() throws {
+    let decoder = JSONDecoder()
+    var preferences = try decoder.decode(Preferences.self, from: Data(#"{"defaultDuration":45,"notifications":true}"#.utf8))
+    #expect(preferences.onboardingStep == nil)
+    preferences.onboardingStep = "reminders"
+    let restored = try decoder.decode(Preferences.self, from: JSONEncoder().encode(preferences))
+    #expect(restored.onboardingStep == "reminders")
+    #expect(restored.defaultDuration == 45 && restored.notifications)
+}
+
 @Test func rejectedCreateCorrectionKeepsIdentityAndDependencies() async throws {
     let h = try await Harness.make(), create = h.create()
     try await h.repo.enqueue(create); await h.provider.failNext(.invalid); await h.dispatcher.drain()

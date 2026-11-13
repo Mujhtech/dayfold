@@ -12,7 +12,7 @@ public struct GoogleCalendarProvider: CalendarProvider {
         c.queryItems = parameters.sorted { $0.key < $1.key }.map { URLQueryItem(name: $0.key, value: $0.value) }
         return c.url!
     }
-    private func request(account: AccountID, path: [String], parameters: [String: String] = [:], method: String = "GET", body: JSONObject? = nil, etag: String? = nil) async throws -> JSONObject {
+    func request(account: AccountID, path: [String], parameters: [String: String] = [:], method: String = "GET", body: JSONObject? = nil, etag: String? = nil) async throws -> JSONObject {
         for attempt in 0...1 {
             var req = URLRequest(url: Self.url(path: path, parameters: parameters)); req.httpMethod = method
             let token = try await tokens.accessToken(for: account, forceRefresh: attempt == 1)

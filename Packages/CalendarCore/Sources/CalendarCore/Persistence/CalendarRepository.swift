@@ -68,6 +68,9 @@ public actor CalendarRepository {
         migrator.registerMigration("v5-closed-drafts") { db in
             try db.execute(sql: "CREATE TABLE closed_drafts (id TEXT PRIMARY KEY, closed REAL NOT NULL); PRAGMA user_version = 5;")
         }
+        migrator.registerMigration("v6-notification-relay") { db in
+            try db.execute(sql: "CREATE TABLE relay_state (id TEXT PRIMARY KEY, payload BLOB NOT NULL); PRAGMA user_version = 6;")
+        }
         try migrator.migrate(database)
         // A crash or task cancellation cannot establish that a remote write was not applied.
         try database.write { db in
