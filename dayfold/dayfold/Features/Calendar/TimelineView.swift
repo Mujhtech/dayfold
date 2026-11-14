@@ -3,6 +3,7 @@ import CalendarCore
 
 struct TimelineView: View {
     @Bindable var model: AppModel
+    @Environment(\.dayfoldReduceMotion) private var reduceMotion
     private var days: [Date] {
         let start = model.visibleRange.start
         return (0..<(model.mode == .day ? 1 : 7)).compactMap { model.calendar.date(byAdding: .day, value: $0, to: start) }.filter { model.preferences.showWeekends || model.mode == .day || !model.calendar.isDateInWeekend($0) }
@@ -10,25 +11,35 @@ struct TimelineView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text(model.preferences.timeZone.abbreviation() ?? "Time").font(.system(size: 10)).foregroundStyle(.secondary).frame(width: 64)
-                ForEach(days, id: \.self) { day in
-                    VStack(spacing: 5) {
-                        Text(day.formatted(Date.FormatStyle(timeZone: model.preferences.timeZone).weekday(.abbreviated))).textCase(.uppercase).font(.system(size: 10, weight: .medium)).foregroundStyle(.secondary)
-                        Text("\(model.calendar.component(.day, from: day))").font(.system(size: 23, weight: .medium, design: .rounded)).frame(width: 36, height: 36).background(model.calendar.isDateInToday(day) ? Color.accentColor : Color.clear, in: Circle()).foregroundStyle(model.calendar.isDateInToday(day) ? Color.white : Color.primary)
-                    }.frame(maxWidth: .infinity).padding(.vertical, 12)
+                Text(model.preferences.timeZone.abbreviation() ?? "Time")
+                    .font(.system(size: 9)).foregroundStyle(.tertiary).frame(width: 50)
+                ForEach(Array(days.enumerated()), id: \.offset) { _, day in
+                    let today = model.calendar.isDateInToday(day)
+                    HStack(spacing: 5) {
+                        Text(day.formatted(Date.FormatStyle(timeZone: model.preferences.timeZone).weekday(.abbreviated)))
+                            .font(.system(size: 11)).foregroundStyle(.secondary)
+                        Text("\(model.calendar.component(.day, from: day))")
+                            .contentTransition(.numericText())
+                            .font(.system(size: 11, weight: today ? .semibold : .medium)).monospacedDigit()
+                            .foregroundStyle(today ? Color.dayfoldAccent : Color.primary)
+                            .frame(width: 22, height: 22)
+                            .background(today ? Color.dayfoldAccent.opacity(0.12) : .clear, in: Circle())
+                        Spacer(minLength: 0)
+                    }.padding(.leading, 8).frame(maxWidth: .infinity, minHeight: 36)
+                        .animation(DayfoldMotion.standard(reduceMotion), value: day)
                 }
             }
             HStack(alignment: .top, spacing: 0) {
-                Text("all-day").font(.system(size: 10)).foregroundStyle(.secondary).frame(width: 64).padding(.top, 8)
+                Text("all-day").font(.system(size: 9)).foregroundStyle(.tertiary).frame(width: 50).padding(.top, 8)
                 ForEach(days, id: \.self) { day in
                     let range = model.calendar.dateInterval(of: .day, for: day)!
                     let events = model.visibleEvents.filter { $0.time?.isAllDay == true && ($0.time?.interval(in: model.preferences.timeZone).overlapsExclusive(range) ?? false) }
                     VStack(spacing: 3) {
                         ForEach(events.prefix(2)) { event in
-                            Button { model.selectedEvent = event } label: { Text(event.title).font(.system(size: 10, weight: .medium)).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 6).padding(.vertical, 4).background(color(event).opacity(0.16), in: RoundedRectangle(cornerRadius: 4)) }.buttonStyle(.plain)
+                            Button { model.selectedEvent = event } label: { Text(event.title).font(.system(size: 10)).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 6).padding(.vertical, 3).background(color(event).opacity(0.08), in: RoundedRectangle(cornerRadius: 4)) }.buttonStyle(.plain)
                         }
                         if events.count > 2 { Button("+\(events.count - 2) more") { model.selectedDate = day; model.mode = .agenda; model.dateChanged() }.font(.caption2).buttonStyle(.plain) }
-                    }.padding(4).frame(maxWidth: .infinity, minHeight: 34, alignment: .top)
+                    }.padding(.horizontal, 5).padding(.vertical, 4).frame(maxWidth: .infinity, minHeight: 32, alignment: .top)
                 }
             }
             Divider()
@@ -43,12 +54,13 @@ struct TimelineView: View {
                                         let date = model.visibleRange.start.addingTimeInterval(Double(hour) * 3600)
                                         Text(date.formatted(Date.FormatStyle(date: .omitted, time: .shortened, timeZone: secondary))).font(.system(size: 8)).opacity(0.7)
                                     }
-                                }.foregroundStyle(.secondary).frame(width: 56, height: model.preferences.hourHeight, alignment: .topTrailing).padding(.trailing, 8).id(hour)
+                                }.foregroundStyle(.secondary).frame(width: 42, height: model.preferences.hourHeight, alignment: .topTrailing).padding(.trailing, 8).id(hour)
                             }
                         }
                         ForEach(days, id: \.self) { day in DayColumn(model: model, day: day, dayCount: days.count) }
                     }
                 }
+                .scrollIndicators(.never)
                 .onAppear { proxy.scrollTo(model.preferences.workStart, anchor: .top) }
             }
         }
@@ -69,10 +81,10 @@ private struct DayColumn: View {
     var body: some View {
         GeometryReader { geometry in
             let placements = TimelineLayout.place(model.visibleEvents, day: range, zone: model.preferences.timeZone)
-            let maximumColumns = max(1, Int(geometry.size.width / 70))
+            let maximumColumns = geometry.size.width >= 148 ? 2 : 1
             let overflow = TimelineDensity.overflow(placements, maximumColumns: maximumColumns)
             ZStack(alignment: .topLeading) {
-                Rectangle().fill(Color.primary.opacity(0.001))
+                Rectangle().fill(model.calendar.isDateInToday(day) ? Color.dayfoldAccent.opacity(0.025) : Color.primary.opacity(0.001))
                     .onTapGesture(count: 2) { point in model.newDraft(start: instant(point.y)) }
                     .gesture(DragGesture(minimumDistance: 12).onEnded { value in
                         let a = instant(min(value.startLocation.y, value.location.y)), b = instant(max(value.startLocation.y, value.location.y))
@@ -82,30 +94,54 @@ private struct DayColumn: View {
                     let date = range.start.addingTimeInterval(Double(hour) * 3600)
                     let localHour = model.calendar.component(.hour, from: date)
                     if localHour < model.preferences.workStart || localHour >= model.preferences.workEnd {
-                        Rectangle().fill(Color.primary.opacity(0.025)).frame(height: model.preferences.hourHeight).offset(y: Double(hour) * model.preferences.hourHeight).allowsHitTesting(false)
+                        Rectangle().fill(Color.primary.opacity(0.018)).frame(height: model.preferences.hourHeight).offset(y: Double(hour) * model.preferences.hourHeight).allowsHitTesting(false)
                     }
-                    Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 0.5).offset(y: Double(hour) * model.preferences.hourHeight).allowsHitTesting(false)
+                    Rectangle().fill(Color.primary.opacity(0.065)).frame(height: 0.5).offset(y: Double(hour) * model.preferences.hourHeight).allowsHitTesting(false)
                     if range.duration != 86400 {
                         Text(date.formatted(Date.FormatStyle(date: .omitted, time: .shortened, timeZone: model.preferences.timeZone)) + " " + (model.preferences.timeZone.abbreviation(for: date) ?? ""))
                             .font(.system(size: 8)).foregroundStyle(.secondary).offset(x: 3, y: Double(hour) * model.preferences.hourHeight).allowsHitTesting(false)
                     }
                 }
-                Rectangle().fill(Color.primary.opacity(0.08)).frame(width: 0.5).allowsHitTesting(false)
+                Rectangle().fill(Color.primary.opacity(0.065)).frame(width: 0.5).allowsHitTesting(false)
                 ForEach(placements.filter { $0.columns <= maximumColumns || $0.column < maximumColumns - 1 }) { placement in
-                    let width = max(1, (geometry.size.width - 6) / Double(min(maximumColumns, placement.columns)))
+                    let width = max(1, (geometry.size.width - 8) / Double(min(maximumColumns, placement.columns)))
                     EventBlock(model: model, event: placement.event, hourHeight: model.preferences.hourHeight, dayWidth: geometry.size.width)
-                        .frame(width: width - 3, height: max(25, placement.end.timeIntervalSince(placement.start) / 3600 * model.preferences.hourHeight - 2))
-                        .offset(x: Double(placement.column) * width + 3, y: placement.start.timeIntervalSince(range.start) / 3600 * model.preferences.hourHeight)
+                        .frame(width: max(1, width - 4), height: max(25, placement.end.timeIntervalSince(placement.start) / 3600 * model.preferences.hourHeight - 3))
+                        .offset(x: Double(placement.column) * width + 4, y: placement.start.timeIntervalSince(range.start) / 3600 * model.preferences.hourHeight)
                 }
                 ForEach(overflow) { group in
-                    let width = max(1, (geometry.size.width - 6) / Double(maximumColumns))
+                    let members = placements.filter { $0.groupID == group.id && $0.column >= maximumColumns - 1 }
+                    let width = max(1, (geometry.size.width - 8) / Double(maximumColumns))
+                    let end = members.map(\.end).max() ?? group.start.addingTimeInterval(1800)
+                    let height = max(28, end.timeIntervalSince(group.start) / 3600 * model.preferences.hourHeight - 3)
                     Button {
                         model.selectedDate = day; model.mode = .agenda; model.dateChanged()
                     } label: {
-                        Text("+\(group.count)\nevents").font(.system(size: 10, weight: .semibold)).multilineTextAlignment(.leading)
-                            .frame(width: width - 3, height: 42).background(.quaternary, in: RoundedRectangle(cornerRadius: 5))
-                    }.buttonStyle(.plain).accessibilityLabel("Show \(group.count) overlapping events in the agenda")
-                        .offset(x: Double(maximumColumns - 1) * width + 3, y: group.start.timeIntervalSince(range.start) / 3600 * model.preferences.hourHeight)
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "square.stack").font(.system(size: 9))
+                                Text("\(group.count) events").font(.system(size: 10, weight: .medium))
+                                Spacer(minLength: 0)
+                                Image(systemName: "chevron.right").font(.system(size: 8))
+                            }.foregroundStyle(.secondary)
+                            if height >= 58 {
+                                ForEach(Array(members.prefix(height >= 90 ? 3 : 1))) { member in
+                                    HStack(alignment: .top, spacing: 5) {
+                                        Circle().fill(Color(calendarHex: model.calendars.first { $0.key == member.event.key.calendar }?.color ?? "#5578C5")).frame(width: 4, height: 4).padding(.top, 5)
+                                        VStack(alignment: .leading, spacing: 1) {
+                                            Text(member.event.title).font(.system(size: 11)).lineLimit(1)
+                                            if height >= 120 { Text(model.timeLabel(member.event)).font(.system(size: 9)).foregroundStyle(.secondary).lineLimit(1) }
+                                        }
+                                    }
+                                }
+                            }
+                            Spacer(minLength: 0)
+                        }.padding(7).frame(width: max(1, width - 4), height: height, alignment: .topLeading)
+                            .background(.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 4))
+                            .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(.primary.opacity(0.08), lineWidth: 0.5))
+                    }.buttonStyle(.plain).help(members.map { $0.event.title + " · " + model.timeLabel($0.event) }.joined(separator: "\n"))
+                        .accessibilityLabel("Show \(group.count) overlapping events in the agenda")
+                        .offset(x: Double(maximumColumns - 1) * width + 4, y: group.start.timeIntervalSince(range.start) / 3600 * model.preferences.hourHeight)
                 }
                 if range.contains(model.now) {
                     HStack(spacing: 0) { Circle().frame(width: 6, height: 6); Rectangle().frame(height: 1) }.foregroundStyle(.red).offset(y: model.now.timeIntervalSince(range.start) / 3600 * model.preferences.hourHeight).allowsHitTesting(false)
@@ -123,23 +159,24 @@ private struct EventBlock: View {
     let dayWidth: Double
     @State private var drag = CGSize.zero
     @State private var cancelled = false
+    @State private var hovered = false
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dayfoldReduceMotion) private var reduceMotion
     private var color: Color { Color(calendarHex: model.calendars.first { $0.key == event.key.calendar }?.color ?? "#5578C5") }
     var body: some View {
         Button { model.selectedEvent = event } label: {
-            HStack(spacing: 0) {
-                RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 3)
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(event.title).font(.system(size: 11, weight: .semibold)).lineLimit(2)
-                    Text(model.timeLabel(event)).font(.system(size: 9)).lineLimit(1).opacity(0.85)
-                    if event.localState != nil { Image(systemName: "clock.arrow.circlepath").font(.system(size: 9)).accessibilityLabel("Pending synchronization") }
-                    Spacer(minLength: 0)
-                }.padding(.horizontal, 6).padding(.vertical, 5)
-                Spacer(minLength: 0)
+            GeometryReader { geometry in
+                blockContents(size: geometry.size)
             }
-            .foregroundStyle(.primary).background(color.opacity(event.response == "declined" ? 0.06 : 0.14), in: RoundedRectangle(cornerRadius: 5))
-            .overlay(RoundedRectangle(cornerRadius: 5).strokeBorder(model.selectedEvent?.id == event.id ? color : color.opacity(0.16), lineWidth: model.selectedEvent?.id == event.id ? 1.5 : 0.5))
-            .clipped()
+            .foregroundStyle(.primary)
+            .background(color.opacity(event.response == "declined" ? 0.05 : colorScheme == .dark ? (hovered ? 0.17 : 0.11) : hovered ? 0.12 : 0.07))
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .overlay(RoundedRectangle(cornerRadius: 5).strokeBorder(model.selectedEvent?.id == event.id ? color : hovered ? color.opacity(0.45) : color.opacity(0.16), lineWidth: model.selectedEvent?.id == event.id ? 1.5 : 0.5))
+            .animation(DayfoldMotion.quick(reduceMotion), value: hovered)
+
         }.buttonStyle(.plain)
+        .onHover { hovered = $0 }
+        .help(helpText)
         .accessibilityLabel(model.accessibleEventLabel(event))
         .offset(drag)
         .simultaneousGesture(DragGesture(minimumDistance: 8).onChanged { value in
@@ -163,6 +200,38 @@ private struct EventBlock: View {
             Button("Open in Google Calendar") { model.openGoogle(event) }
         }
     }
+    private var helpText: String {
+        var parts = [event.title, model.timeLabel(event), model.sourceLabel(event.key.calendar)]
+        if let state = event.localState { parts.append(state.label) }
+        return parts.joined(separator: " · ")
+    }
+    private func blockContents(size: CGSize) -> some View {
+        let titleLines: Int = size.height > 54 ? 2 : 1
+        return
+                HStack(spacing: 0) {
+                    Rectangle().fill(color.opacity(0.8)).frame(width: 2)
+                    VStack(alignment: .leading, spacing: 3) {
+                        HStack(alignment: .top, spacing: 3) {
+                            Text(event.title).font(.system(size: 11, weight: .medium))
+                                .lineLimit(titleLines)
+                                .strikethrough(event.response == "declined")
+                            if let state = event.localState { Image(systemName: "clock.arrow.circlepath").font(.system(size: 8)).foregroundStyle(.secondary).padding(.top, 2).accessibilityLabel(state.label) }
+                        }
+                        if size.height > 36 {
+                            HStack(spacing: 3) {
+                                Text(blockTime(compact: size.width < 108)).font(.system(size: 9)).monospacedDigit().lineLimit(1)
+                            }.foregroundStyle(.secondary)
+                        }
+                        Spacer(minLength: 0)
+                    }.padding(.horizontal, 6).padding(.top, size.height > 36 ? 6 : 4)
+                    Spacer(minLength: 0)
+                }.frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    private func blockTime(compact: Bool) -> String {
+        guard compact, let time = event.time else { return model.timeLabel(event) }
+        return time.interval(in: model.preferences.timeZone).start.formatted(Date.FormatStyle(date: .omitted, time: .shortened, timeZone: model.preferences.timeZone))
+    }
+
 }
 
 extension AppModel {

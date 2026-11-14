@@ -11,6 +11,12 @@ struct SettingsView: View {
         TabView {
             AccountsSettings(model: model).tabItem { Label("Accounts", systemImage: "person.crop.circle") }
             Form {
+                Section("Your workspace") {
+                    ExperienceChoiceView(model: model, compact: true)
+                }
+                if model.preferences.experienceMode == .assistant {
+                    Section("Assistant connection") { AssistantConnectionView(model: model) }
+                }
                 Section("Calendar") {
                     Picker("Start with", selection: $model.preferences.startupView) { Text("Restore last view").tag("restore"); ForEach(CalendarViewMode.allCases) { Text($0.rawValue).tag($0.rawValue) } }
                     Picker("Default calendar", selection: Binding(get: { model.preferences.defaultCalendar?.id ?? "" }, set: { id in model.preferences.defaultCalendar = model.calendars.first { $0.id == id }?.key; model.savePreferences() })) { Text("Choose a calendar").tag(""); ForEach(model.calendars.filter(\.writable)) { Text(model.sourceLabel($0.key)).tag($0.id) } }
@@ -56,8 +62,10 @@ struct SettingsView: View {
                     if model.isDemo { Text("Demo does not schedule event reminders.").font(.caption).foregroundStyle(.orange) }
                 }
             }.formStyle(.grouped).tabItem { Label("Reminders", systemImage: "bell") }
+            RelaySettingsView(model: model).tabItem { Label("Real-time", systemImage: "bolt.horizontal") }
             AdvancedSettings(model: model).tabItem { Label("Advanced", systemImage: "wrench.and.screwdriver") }
         }
+        .scrollIndicators(.never)
         .onChange(of: model.preferences) { model.savePreferences() }
         .task { if let status = await model.notifications?.permission() { model.notificationPermission = String(describing: status); model.loginStatus = PlatformServices.loginStatus } }
         .alert("Dayfold", isPresented: Binding(get: { model.errorMessage != nil }, set: { if !$0 { model.errorMessage = nil } })) { Button("OK") { model.errorMessage = nil } } message: { Text(model.errorMessage ?? "") }
@@ -123,7 +131,7 @@ private struct AdvancedSettings: View {
                 Button("Export redacted diagnostics…") { exportDiagnostics() }
                 Text("Includes versions, status categories, and counts. No tokens, event text, guest addresses, or meeting links.").font(.caption).foregroundStyle(.secondary)
             }
-            Section("Privacy") { Text("Calendar data stays in Google and this Mac's app container. OAuth credentials are kept in Keychain. Dayfold has no analytics or remote content storage. Local cache uses OS protections; it is not separately encrypted.").font(.callout); Text("Offline recurrence is limited to downloaded ranges. Structural recurring edits require online review. This and following, busy mirroring, other providers, billing, and automatic updates are not enabled.").font(.caption).foregroundStyle(.secondary) }
+            Section("Privacy") { Text("Dayfold connects directly to Google and keeps calendar data on this Mac. Credentials are kept in Keychain. An optional Dayfold account for real-time updates stores account and device information, routing IDs, and reminder times; the relay does not store event details. If you use the assistant, requests and relevant event titles and times are sent to OpenAI with your API key. Dayfold has no analytics. The local cache uses macOS protections and is not separately encrypted.").font(.callout); Text("Offline recurrence is limited to downloaded ranges. Structural recurring edits require online review. This and following, busy mirroring, other providers, billing, and automatic updates are not enabled.").font(.caption).foregroundStyle(.secondary) }
         }.formStyle(.grouped)
         .confirmationDialog("Rebuild Google's cached data?", isPresented: $rebuild) { Button("Rebuild and refresh") { Task { do { try await model.repository?.rebuildRemoteCache(); await model.refresh() } catch { model.errorMessage = error.localizedDescription } } }; Button("Cancel", role: .cancel) {} }
         .confirmationDialog("Remove this store's local data?", isPresented: $reset, titleVisibility: .visible) {

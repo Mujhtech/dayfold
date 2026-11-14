@@ -12,6 +12,7 @@ extension AppModel {
         guard let repository else { throw CalendarError.missing }
         try await repository.discardDraft(id)
         unsavedDrafts[id] = nil
+        completeAssistantDraft(id, message: "Draft discarded. No event was added.")
     }
     func flushLocalDrafts() async throws {
         for draft in unsavedDrafts.values { try await persistDraft(draft) }

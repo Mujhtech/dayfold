@@ -6,26 +6,46 @@ import CalendarPlatform
 
 extension AppModel {
     func connect(expected: CalendarAccount? = nil) {
-        guard !isConnecting else { return }; isConnecting = true
+        guard !isConnecting, !isLoading else { return }; isConnecting = true
         Task {
+            let initialGeneration = sessionGeneration
+            let authorizer = auth
             defer { isConnecting = false }
             do {
-                let identity = try await auth.authorize()
+                let identity = try await authorizer.authorize()
+                guard initialGeneration == sessionGeneration else { throw CalendarError.staleGeneration }
                 if let expected, identity.subject != expected.subject { throw CalendarError.invalid("You chose a different Google account. Please reconnect \(expected.email).") }
+                let targetGeneration = isDemo ? initialGeneration + 1 : initialGeneration
                 if isDemo { await loadStore(demo: false) }
-                guard let repository else { return }
-                let existing = try await repository.accounts().first { $0.subject == identity.subject }
+                guard targetGeneration == sessionGeneration, !isDemo, let repository else { throw CalendarError.staleGeneration }
+                let generation = sessionGeneration, destinationAuth = auth
+                let connectedAccounts = try await repository.accounts()
+                let existing = connectedAccounts.first { $0.subject == identity.subject }
+                guard generation == sessionGeneration else { throw CalendarError.staleGeneration }
                 let account = CalendarAccount(id: existing?.id ?? AccountID(), subject: identity.subject, email: identity.email, scopes: identity.scopes)
-                try await auth.store(identity, account: account.id)
+                try await destinationAuth.store(identity, account: account.id)
+                guard generation == sessionGeneration else { throw CalendarError.staleGeneration }
                 try await repository.connect(account, expected: expected?.id)
+                if connectedAccounts.isEmpty {
+                    var setupPreferences = try await repository.preferences()
+                    setupPreferences.onboardingStep = OnboardingStep.calendars.rawValue
+                    try await repository.setPreferences(setupPreferences)
+                    guard generation == sessionGeneration else { throw CalendarError.staleGeneration }
+                    preferences.onboardingStep = OnboardingStep.calendars.rawValue
+                }
                 for var m in try await repository.mutations() where m.key.calendar.account == account.id && m.state == .blockedAuthorization { m.state = .queued; try await repository.transition(m) }
+                guard generation == sessionGeneration else { throw CalendarError.staleGeneration }
                 await sync?.refresh(window: visibleRange, forceMetadata: true)
+                guard generation == sessionGeneration else { throw CalendarError.staleGeneration }
                 await reload()
-                if existing == nil { showAccountSetup = true }
+                if connectedAccounts.isEmpty {
+                    onboardingStep = .calendars
+                } else if existing == nil { showAccountSetup = true }
             } catch { errorMessage = error.localizedDescription }
         }
     }
     func newDraft(start: Date? = nil, end: Date? = nil) {
+        guard !isLoading, !isShowingOnboarding, !accounts.isEmpty else { return }
         let start = start ?? Date(timeIntervalSince1970: ceil(Date().timeIntervalSince1970 / 900) * 900)
         let time = EventTime.timed(start: start, end: end ?? start.addingTimeInterval(Double(preferences.defaultDuration * 60)), startZone: preferences.timeZone.identifier, endZone: preferences.timeZone.identifier)
         let draft = EventDraft(calendar: preferences.defaultCalendar, fields: time.providerFields.merging(["summary": .string(""), "reminders": .object(["useDefault": .bool(true)])]) { _, v in v })
@@ -67,6 +87,7 @@ extension AppModel {
     }
     func submit(_ draft: EventDraft) async throws {
         guard let repository, let key = draft.calendar else { throw CalendarError.invalid("Choose a calendar for this event.") }
+        let generation = sessionGeneration
         guard let time = EventTime.decode(draft.fields, calendarZone: preferences.timeZone.identifier) else { throw CalendarError.invalid("Choose valid event dates.") }
         let allowed: Set<String> = ["summary", "description", "location", "start", "end", "recurrence", "attendees", "transparency", "visibility", "reminders", "conferenceData"]
         var fields = draft.fields.filter { allowed.contains($0.key) }
@@ -98,9 +119,13 @@ extension AppModel {
         let mutation = Mutation(id: draft.id, key: eventKey, kind: draft.source == nil ? .create : .patch, fields: fields, base: draft.source)
         if let rejected = draft.repairingMutationID { try await repository.reviseRejected(rejected, fields: fields, draftID: draft.id) }
         else { try await repository.enqueue(mutation, draftID: draft.id) }
+        // The reviewed intent belongs to the captured store. If a switch won the
+        // race, leave it durable there without closing an editor in the new store.
+        guard generation == sessionGeneration else { return }
         logger.info("local_change_saved kind=\(mutation.kind.rawValue, privacy: .public)")
         queuedRedo = nil
         unsavedDrafts[draft.id] = nil
+        completeAssistantDraft(draft.id, message: "Your reviewed event was saved locally and queued for sync.")
         editingDraft = nil; await reload()
         Task { await dispatcher?.drain(); await refresh() }
     }
@@ -158,14 +183,20 @@ extension AppModel {
     }
     func disconnect(_ account: CalendarAccount, export: Bool) {
         Task {
+            let generation = sessionGeneration
             if export { guard await exportRecovery(account: account.id) else { return } }
             do {
+                guard generation == sessionGeneration, let repository else { throw CalendarError.staleGeneration }
+                let scheduler = notifications, demo = isDemo, authorizer = auth
+                resetAssistant()
+                try await removeRelayAccount(account.id)
+                guard generation == sessionGeneration else { throw CalendarError.staleGeneration }
                 var removing = account; removing.generation += 1; removing.status = .removing
-                try await repository?.updateAccount(removing)
-                if !isDemo { try await auth.remove(account.id) }
-                await notifications?.removeAllForAccount(account.id)
-                try await repository?.removeAccount(account.id, discardPending: true)
-            } catch { errorMessage = error.localizedDescription }
+                try await repository.updateAccount(removing)
+                if !demo { try await authorizer.remove(account.id) }
+                await scheduler?.removeAllForAccount(account.id)
+                try await repository.removeAccount(account.id, discardPending: true)
+            } catch { if generation == sessionGeneration { errorMessage = error.localizedDescription } }
         }
     }
     func simulateOffline(_ value: Bool) { demoOffline = value; Task { await demoProvider?.setOffline(value); await refresh() } }

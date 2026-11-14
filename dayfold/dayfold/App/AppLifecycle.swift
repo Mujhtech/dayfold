@@ -1,12 +1,13 @@
 import AppKit
 import Combine
 import CalendarPlatform
+import CalendarCore
 import UserNotifications
 
 extension AppModel {
     func observeLifecycle() {
         NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.willSleepNotification)
-            .sink { [weak self] _ in Task { @MainActor in self?.isSleeping = true } }.store(in: &lifecycleSubscriptions)
+            .sink { [weak self] _ in Task { @MainActor in self?.isSleeping = true; await self?.relay?.stop() } }.store(in: &lifecycleSubscriptions)
         NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didWakeNotification)
             .sink { [weak self] _ in Task { @MainActor in self?.isSleeping = false; await self?.handleClockOrActivation() } }.store(in: &lifecycleSubscriptions)
         for name in [NSApplication.didBecomeActiveNotification, NSNotification.Name.NSSystemClockDidChange, NSNotification.Name.NSSystemTimeZoneDidChange, NSNotification.Name.NSCalendarDayChanged] {
@@ -26,6 +27,6 @@ extension AppModel {
             @unknown default: notificationPermission = "Unavailable"
             }
         }
-        await reload(); await refresh()
+        await reload(); await resumeRelay(); await refresh()
     }
 }

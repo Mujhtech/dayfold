@@ -21,11 +21,11 @@ import XCTest
     func testCalendarViewsAndDurableDraft() {
         let id = UUID().uuidString
         let app = app(demo: true, id: id)
-        XCTAssertTrue(app.radioButtons["Month"].waitForExistence(timeout: 30))
+        XCTAssertTrue(app.buttons["Month"].waitForExistence(timeout: 30))
         XCTAssertTrue(app.buttons.containing(NSPredicate(format: "label CONTAINS 'Focus'")).firstMatch.waitForExistence(timeout: 30))
         capture("week", app: app)
-        app.radioButtons["Month"].click(); capture("month", app: app)
-        app.radioButtons["Agenda"].click(); capture("agenda", app: app)
+        app.buttons["Month"].click(); capture("month", app: app)
+        app.buttons["Agenda"].click(); capture("agenda", app: app)
         app.typeKey("n", modifierFlags: .command)
         let title = app.textFields["event-title"]
         XCTAssertTrue(title.waitForExistence(timeout: 10)); title.click(); title.typeText("UI persistence check")

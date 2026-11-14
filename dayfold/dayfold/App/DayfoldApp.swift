@@ -3,6 +3,7 @@ import CalendarCore
 import CalendarPlatform
 import AppKit
 import Carbon
+@preconcurrency import UserNotifications
 
 @main
 struct DayfoldApp: App {
@@ -11,24 +12,82 @@ struct DayfoldApp: App {
     var body: some Scene {
         WindowGroup("Dayfold", id: "calendar") {
             CalendarWindow(model: model)
+                .modifier(DayfoldAppearance(preference: model.preferences.appearance))
+                .modifier(DayfoldMotionEnvironment())
+                .modifier(CompanionPreviewLauncher())
                 .frame(minWidth: 980, minHeight: 660)
                 .background(ReachableWindow(identifier: "dayfold-calendar", hideInitially: { DayfoldDelegate.launchedAtLogin }))
-                .preferredColorScheme(model.preferences.appearance == "light" ? .light : model.preferences.appearance == "dark" ? .dark : nil)
         }
-        .defaultSize(width: 1320, height: 860)
+        .defaultSize(width: 1240, height: 820)
+        .windowToolbarStyle(.unified)
         .commands { DayfoldCommands(model: model) }
-        Settings { SettingsView(model: model).frame(width: 700, height: 620) }
-        MenuBarExtra { MenuBarView(model: model) } label: { Label(model.menuTitle, systemImage: "calendar") }
+        Settings {
+            SettingsView(model: model).frame(width: 700, height: 620)
+                .modifier(DayfoldAppearance(preference: model.preferences.appearance))
+        }
+        MenuBarExtra {
+            MenuBarView(model: model)
+                .modifier(DayfoldMotionEnvironment())
+                .modifier(DayfoldAppearance(preference: model.preferences.appearance))
+        } label: { DayfoldMenuLabel(model: model) }
             .menuBarExtraStyle(.window)
-        Window("Quick entry", id: "quick-entry") { QuickEntryView(model: model).frame(width: 540).padding(24) }
+        Window("Quick entry", id: "quick-entry") {
+            QuickEntryView(model: model).frame(width: 560)
+                .modifier(DayfoldMotionEnvironment())
+                .modifier(DayfoldAppearance(preference: model.preferences.appearance))
+        }
             .windowResizability(.contentSize)
+        #if DEBUG
+        Window("Companion preview", id: "companion-preview") {
+            MenuBarView(model: model)
+                .modifier(DayfoldMotionEnvironment())
+                .modifier(DayfoldAppearance(preference: model.preferences.appearance))
+        }
+        .windowResizability(.contentSize)
+        .windowStyle(.hiddenTitleBar)
+        #endif
     }
 }
 
-@MainActor final class DayfoldDelegate: NSObject, NSApplicationDelegate {
+private struct DayfoldMenuLabel: View {
+    var model: AppModel
+
+    var body: some View {
+        if model.preferences.menuStyle == "icon" {
+            Image(systemName: "calendar").accessibilityLabel("Dayfold")
+        } else {
+            Label(model.menuTitle, systemImage: "calendar")
+                .labelStyle(.titleAndIcon)
+                .accessibilityLabel("Dayfold, " + model.menuTitle)
+        }
+    }
+}
+
+/// Uses the production companion view for local UI checks without system menu-bar automation.
+private struct CompanionPreviewLauncher: ViewModifier {
+    @Environment(\.openWindow) private var openWindow
+
+    func body(content: Content) -> some View {
+        content.task {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--companion-preview") {
+                openWindow(id: "companion-preview")
+            }
+            #endif
+        }
+    }
+}
+
+@MainActor final class DayfoldDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     static weak var currentModel: AppModel?
     static var launchedAtLogin = false
     private var terminating = false
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        // Capture a notification that launched the process while the store is
+        // opening. The scheduler takes over this delegate once it is ready.
+        let center = UNUserNotificationCenter.current()
+        if center.delegate == nil { center.delegate = self }
+    }
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
         let login = NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
@@ -37,11 +96,35 @@ struct DayfoldApp: App {
         else { NSApp.activate(ignoringOtherApps: true) }
     }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+    func application(_ application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Task { await Self.currentModel?.uploadRelayPushToken(deviceToken) }
+    }
+    func application(_ application: NSApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        Self.currentModel?.relayAPNSStatus = "Apple push registration is unavailable. Dayfold will retry when the app becomes active."
+    }
+    func application(_ application: NSApplication, didReceiveRemoteNotification userInfo: [String: Any]) {
+        guard let payload = RemotePushPayload(userInfo: userInfo) else { return }
+        Self.currentModel?.receivedRelayPush(payload)
+    }
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        // The persisted reminder revision must be loaded before an alert can
+        // be validated. The durable inbox will replay it after startup.
+        []
+    }
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        guard let payload = RemotePushPayload(userInfo: response.notification.request.content.userInfo) else { return }
+        let action = response.actionIdentifier
+        await Self.currentModel?.handleRelayTap(payload, action: action)
+    }
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard !terminating, let model = Self.currentModel else { return .terminateNow }
         terminating = true
         Task {
-            do { try await model.flushLocalDrafts(); sender.reply(toApplicationShouldTerminate: true) }
+            do {
+                try await model.flushLocalDrafts()
+                await model.relay?.stop()
+                sender.reply(toApplicationShouldTerminate: true)
+            }
             catch {
                 terminating = false
                 model.errorMessage = "Dayfold could not save your draft before quitting. Your text is still open. " + error.localizedDescription
@@ -85,6 +168,9 @@ struct DayfoldCommands: Commands {
             }.keyboardShortcut("z", modifiers: [.command, .shift]).disabled(!model.isTextEditing && model.redoCandidate == nil)
         }
         CommandGroup(replacing: .help) {
+            Button("Show Introduction") { model.showIntroduction() }
+                .disabled(model.isLoading || model.isConnecting || model.editingDraft != nil || model.isSavingCalendarSelection)
+            Divider()
             Button("Dayfold Help") { model.errorMessage = "Dayfold connects directly to Google and keeps a local cache. Closing the calendar leaves the menu bar companion running. Cmd-Q stops synchronization; previously scheduled reminders may still appear. Dates not downloaded are unavailable offline. Use Settings → Advanced to export pending changes. Demo data is stored separately and never sent to Google." }
         }
     }

@@ -17,6 +17,8 @@ Dependencies: GRDB 7.12.0 (MIT), AppAuth 3.0.0 (Apache 2.0), KeyboardShortcuts 3
 
 The run script copies the ignored override into the bundle. Both the override and generated resource are ignored by git. An empty configuration leaves Demo available and presents a setup explanation when Connect is selected.
 
+The first Google account opens a four-step introduction: welcome, calendar selection, optional reminders, and menu-bar/Quick Entry guidance with optional launch at login. The active step is saved in that store and resumes after relaunch. Existing accounts are not forced through setup; **Help → Show Introduction** reopens it. **Explore Demo** goes directly to fictional calendars. A replay in Demo does not request notification permission or enable launch at login. Additional Google accounts use a calendar-selection sheet; reconnecting an existing account does not restart the introduction.
+
 Requested scopes: `openid`, `email`, `calendar.events`, `calendar.calendarlist.readonly`, `calendar.settings.readonly`, `calendar.events.freebusy` under Google's documented namespace. Production consent/verification and scope behavior must be verified with the owner's Google project. Testing-mode refresh tokens can expire; reconnection is not evidence of a retry bug.
 
 Use disposable calendars for live tests. Invitations require owner-approved test recipients. Do not use real meetings to demonstrate development progress.

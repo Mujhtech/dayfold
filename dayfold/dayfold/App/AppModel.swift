@@ -3,13 +3,20 @@ import SwiftUI
 import Observation
 import CalendarCore
 import CalendarPlatform
+import UserNotifications
 import OSLog
 import Combine
 
 enum CalendarViewMode: String, CaseIterable, Identifiable { case day = "Day", week = "Week", month = "Month", agenda = "Agenda"; var id: String { rawValue } }
-enum SidebarPage: String { case calendar, invitations, pending }
+enum SidebarPage: String { case calendar, assistant, invitations, pending }
 
 @MainActor @Observable final class AppModel {
+    struct CompanionLoadFailure {
+        var range: DateInterval
+        var zone: TimeZone
+        var message: String
+    }
+
     var accounts: [CalendarAccount] = []
     var calendars: [CalendarSource] = []
     var events: [CalendarEvent] = []
@@ -17,6 +24,9 @@ enum SidebarPage: String { case calendar, invitations, pending }
     var companionEvents: [CalendarEvent] = []
     var menuDate = Date()
     var companionCovered = false
+    var companionLoadedRange: DateInterval?
+    var companionLoadedZone: TimeZone?
+    var companionLoadFailure: CompanionLoadFailure?
     var pending: [Mutation] = []
     var recentChanges: [Mutation] = []
     var reversalRequest: Mutation?
@@ -24,7 +34,20 @@ enum SidebarPage: String { case calendar, invitations, pending }
     var drafts: [EventDraft] = []
     var conflicts: [EventConflict] = []
     var coverage: [CacheCoverage] = []
-    var preferences = Preferences()
+    var preferences = Preferences() {
+        didSet {
+            if oldValue.appearance != preferences.appearance { applyAppearance() }
+            if oldValue.assistantModel != preferences.assistantModel {
+                let composedRequest = assistantInput
+                resetAssistant()
+                assistantInput = composedRequest
+            }
+            if oldValue.experienceMode != preferences.experienceMode, !isLoading {
+                if preferences.experienceMode == .calendar { resetAssistant() }
+                if !isShowingOnboarding { page = preferredPage }
+            }
+        }
+    }
     var selectedDate = Date()
     var mode: CalendarViewMode = .week
     var page: SidebarPage = .calendar
@@ -43,6 +66,29 @@ enum SidebarPage: String { case calendar, invitations, pending }
     var isConnecting = false
     var isSleeping = false
     var showAccountSetup = false
+    var onboardingStep: OnboardingStep?
+    var isSavingCalendarSelection = false
+    var assistantInput = ""
+    var assistantQuestion = ""
+    var assistantAnswer = ""
+    var assistantProposal: AssistantEventProposal?
+    var assistantProposalZone: TimeZone?
+    var assistantDraftID: String?
+    var assistantDraftStatus: String?
+    var assistantPreviewDate = Date()
+    var assistantError: String?
+    var assistantIsWorking = false
+    var assistantIsStopping = false
+    var assistantIsOpeningDraft = false
+    var assistantActivity: [String] = []
+    var assistantAvailability: AssistantAvailabilityStatus?
+    var assistantKeyPresent = false
+    var assistantConfigurationBusy = false
+    var assistantConfigurationMessage: String?
+    @ObservationIgnored var assistantTask: Task<Void, Never>?
+    @ObservationIgnored var assistantService: CloudCalendarAssistant?
+    @ObservationIgnored var assistantCredentialStore: AssistantCredentialStore?
+    @ObservationIgnored var assistantRequestID = UUID()
     var errorMessage: String?
     var fatalMessage: String?
     var preservedDirectory: URL?
@@ -50,6 +96,15 @@ enum SidebarPage: String { case calendar, invitations, pending }
     var now = Date()
     var notificationPermission = "Not requested"
     var loginStatus = PlatformServices.loginStatus
+    var relayConfiguration: RelayConfiguration?
+    var relayStatus = "Not connected"
+    var relayConnected = false
+    var relayAPNSStatus = "Push notifications are not configured"
+    var relayConnecting = false
+    var relayAccountIdentity: RelayAccountIdentity?
+    var relayIdentityProvider = ""
+    var relayAccountDevices: [RelayAccountDevice] = []
+    var relayAuthConfiguration: RelayOIDCConfiguration?
     var openCalendar: (() -> Void)?
     var openQuickEntry: (() -> Void)?
     @ObservationIgnored var repository: CalendarRepository?
@@ -58,6 +113,18 @@ enum SidebarPage: String { case calendar, invitations, pending }
     @ObservationIgnored var sync: SyncCoordinator?
     @ObservationIgnored var dispatcher: MutationDispatcher?
     @ObservationIgnored var notifications: NotificationScheduler?
+    @ObservationIgnored var relay: RelayCoordinator?
+    @ObservationIgnored var relayCredentialStore: RelayCredentialStore?
+    @ObservationIgnored var relayAccountSession: RelayAccountSession?
+    @ObservationIgnored var relayAccountSignIn: DayfoldAccountAuthorization?
+    @ObservationIgnored var relayOwnedReminderIDs: Set<String> = []
+    @ObservationIgnored var lastRelayInput: RelayReconciliation?
+    @ObservationIgnored var relayRestoreTask: Task<Void, Never>?
+    @ObservationIgnored var relayRestoring = false
+    @ObservationIgnored var relayConnectionID = UUID()
+    @ObservationIgnored var apnsToken: Data?
+    @ObservationIgnored var relayPushHints: Set<UUID> = []
+    @ObservationIgnored var relayPendingTaps: [(RemotePushPayload, String)] = []
     @ObservationIgnored var ownership: ProcessOwnership?
     @ObservationIgnored var observer: Task<Void, Never>?
     @ObservationIgnored var poller: Task<Void, Never>?
@@ -66,25 +133,36 @@ enum SidebarPage: String { case calendar, invitations, pending }
     @ObservationIgnored var searchTask: Task<Void, Never>?
     @ObservationIgnored var sessionGeneration = 0
     @ObservationIgnored var loadRevision = 0
+    @ObservationIgnored var companionLoadRevision = 0
     @ObservationIgnored var refreshRequested = false
     @ObservationIgnored var unsavedDrafts: [String: EventDraft] = [:]
     @ObservationIgnored var lifecycleSubscriptions: Set<AnyCancellable> = []
     @ObservationIgnored var dataDirectory: URL?
-    @ObservationIgnored let auth: GoogleAuthorization
+    @ObservationIgnored var auth: GoogleAuthorization
+    @ObservationIgnored let oauthConfiguration: OAuthConfiguration
     @ObservationIgnored let logger = Logger(subsystem: "mujhtech.dayfold", category: "lifecycle")
 
     init() {
         let config = Bundle.main.url(forResource: "OAuth", withExtension: "json").flatMap { try? Data(contentsOf: $0) }.flatMap { try? JSONDecoder().decode(OAuthConfiguration.self, from: $0) } ?? OAuthConfiguration()
-        auth = GoogleAuthorization(configuration: config)
+        oauthConfiguration = config
+        auth = GoogleAuthorization(configuration: config, namespace: "unopened")
         selectedDate = UserDefaults.standard.object(forKey: "selectedDate") as? Date ?? Date()
         mode = CalendarViewMode(rawValue: UserDefaults.standard.string(forKey: "calendarMode") ?? "Week") ?? .week
         let arguments = ProcessInfo.processInfo.arguments
         let demo = !arguments.contains("--real") && (arguments.contains("--demo") || UserDefaults.standard.bool(forKey: "demoMode"))
         if arguments.contains("--ui-test-id") { selectedDate = Date(); mode = .week }
         DayfoldDelegate.currentModel = self
+        applyAppearance()
         observeLifecycle()
         Task { await loadStore(demo: demo) }
     }
+
+    /// Native panels follow this application override; SwiftUI presentations also
+    /// receive the same preference through DayfoldAppearance at each scene root.
+    private func applyAppearance() {
+        PlatformServices.setAppearance(preferences.appearance)
+    }
+
     var calendar: Calendar {
         var c = Calendar(identifier: .gregorian); c.locale = .current; c.timeZone = preferences.timeZone
         if preferences.weekStart != 0 { c.firstWeekday = preferences.weekStart }; return c
@@ -115,9 +193,22 @@ enum SidebarPage: String { case calendar, invitations, pending }
         return (e.time?.interval(in: preferences.timeZone).end ?? .distantPast) > now
     } }
     var menuTitle: String {
-        guard preferences.menuStyle != "icon", let event = nextEvent, let start = event.time?.interval(in: preferences.timeZone).start else { return "" }
+        guard preferences.menuStyle != "icon" else { return "" }
+        // Keep text styles visible while loading or without an eligible meeting.
+        // Missing cached events do not necessarily mean the calendar is empty.
+        guard let event = nextEvent, let start = event.time?.interval(in: preferences.timeZone).start else { return "Dayfold" }
         if preferences.menuStyle == "countdown" { return start <= now ? "Now" : "\(Int(ceil(start.timeIntervalSince(now) / 60)))m" }
         return start.formatted(Date.FormatStyle(date: .omitted, time: .shortened, timeZone: preferences.timeZone))
+    }
+    var companionDayIsLoaded: Bool {
+        companionLoadedRange == calendar.dateInterval(of: .day, for: menuDate)
+            && companionLoadedZone == preferences.timeZone
+    }
+    var companionDayError: String? {
+        guard let failure = companionLoadFailure,
+              failure.range == calendar.dateInterval(of: .day, for: menuDate),
+              failure.zone == preferences.timeZone else { return nil }
+        return failure.message
     }
     var cachedVisibleRange: Bool { calendars.filter { $0.visible && $0.syncEnabled && !$0.deleted }.allSatisfy { source in coverage.contains { $0.calendar == source.key && $0.interval.start <= visibleRange.start && $0.interval.end >= visibleRange.end } } }
     var staleVisibleRange: Bool { calendars.filter { $0.visible && $0.syncEnabled && !$0.deleted }.contains { source in !coverage.contains { $0.calendar == source.key && !$0.stale && $0.interval.start <= visibleRange.start && $0.interval.end >= visibleRange.end } } }
@@ -131,22 +222,54 @@ enum SidebarPage: String { case calendar, invitations, pending }
             do { try await flushLocalDrafts() }
             catch { errorMessage = "Could not switch stores until your draft is saved. " + error.localizedDescription; return }
         }
-        observer?.cancel(); poller?.cancel(); prefetcher?.cancel(); minuteTimer?.cancel(); sessionGeneration += 1; let generation = sessionGeneration
+        sessionGeneration += 1; let generation = sessionGeneration
+        resetAssistant()
+        isLoading = true
+        let previousAssistantStore = assistantCredentialStore
+        assistantCredentialStore = nil; assistantKeyPresent = false; assistantAvailability = nil
+        assistantConfigurationBusy = false; assistantConfigurationMessage = nil
+        await previousAssistantStore?.invalidate()
+        guard generation == sessionGeneration else { return }
+        let previousVault = relayCredentialStore
+        relayAccountSignIn?.cancel()
+        await relayAccountSession?.invalidate()
+        auth.cancel()
+        await auth.cancelPendingRequests()
+        await previousVault?.invalidate()
+        guard generation == sessionGeneration else { return }
+        relayCredentialStore = nil
+        relayAccountSession = nil; relayAccountSignIn = nil
+        relayAccountIdentity = nil; relayIdentityProvider = ""; relayAccountDevices = []; relayAuthConfiguration = nil
+        relayConnectionID = UUID(); relayRestoring = false
+        relayRestoreTask?.cancel(); await relay?.stop()
+        guard generation == sessionGeneration else { return }
+        relay = nil; relayConnecting = false
+        relayConfiguration = nil; relayStatus = "Not connected"; relayConnected = false; relayOwnedReminderIDs = []; lastRelayInput = nil
+        observer?.cancel(); poller?.cancel(); prefetcher?.cancel(); minuteTimer?.cancel()
         isRefreshing = false; refreshRequested = false
+        onboardingStep = nil; showAccountSetup = false; isSavingCalendarSelection = false
         queuedRedo = nil; reversalRequest = nil
         repository = nil; sync = nil; dispatcher = nil; provider = nil; notifications = nil; ownership = nil; dataDirectory = nil
         isLoading = true; fatalMessage = nil; isDemo = demo; demoOffline = false; accounts = []; calendars = []; events = []; menuEvents = []; companionEvents = []; pending = []; recentChanges = []; drafts = []; conflicts = []; coverage = []; selectedEvent = nil; editingDraft = nil
+        companionCovered = false; companionLoadedRange = nil; companionLoadedZone = nil; companionLoadFailure = nil
         do {
             let args = ProcessInfo.processInfo.arguments
             let base: URL
             if let i = args.firstIndex(of: "--ui-test-id"), args.indices.contains(i + 1) { base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("DayfoldUITests/" + args[i + 1], isDirectory: true) }
             else if let i = args.firstIndex(of: "--test-store"), args.indices.contains(i + 1) { base = URL(fileURLWithPath: args[i + 1], isDirectory: true) }
             else { base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Dayfold", isDirectory: true) }
-            let directory = base.appendingPathComponent(demo ? "Demo" : "Google", isDirectory: true)
-            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            let directory = base.appendingPathComponent(demo ? "Demo" : "Google", isDirectory: true).standardizedFileURL.resolvingSymlinksInPath()
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
+            try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: directory.path)
+            let legacyCredentialsAllowed = !demo && !args.contains("--test-store") && !args.contains("--ui-test-id")
+            auth = GoogleAuthorization(configuration: oauthConfiguration, namespace: directory.path, allowLegacyMigration: legacyCredentialsAllowed)
             ownership = try ProcessOwnership(path: directory.appendingPathComponent("dispatcher.lock").path); dataDirectory = directory
+            assistantCredentialStore = AssistantCredentialStore(namespace: directory.path)
             let repo = try CalendarRepository(path: directory.appendingPathComponent("calendar.sqlite").path)
             repository = repo
+            let savedRelay = try await repo.relayState()
+            relayConfiguration = savedRelay.configuration
+            relayOwnedReminderIDs = savedRelay.remoteOwnedIDs
             let chosen: any CalendarProvider
             if demo {
                 let dataset = FixtureFactory.demo(now: Date())
@@ -159,9 +282,13 @@ enum SidebarPage: String { case calendar, invitations, pending }
             if !args.contains("--ui-test-id"), let startup = CalendarViewMode(rawValue: preferences.startupView) { mode = startup }
             notifications = NotificationScheduler(repository: repo)
             notifications?.openEvent = { [weak self] key, join in self?.route(to: key, join: join) }
+            configureRelayNotificationHandlers()
             PlatformServices.registerQuickEntry { [weak self] in self?.openQuickEntry?() }
             if !args.contains("--ui-test-id") { UserDefaults.standard.set(demo, forKey: "demoMode") }
             await reload()
+            onboardingStep = accounts.isEmpty ? .welcome : preferences.onboardingStep.flatMap(OnboardingStep.init(rawValue:))
+            page = preferredPage
+            relayRestoreTask = Task { [weak self] in await self?.restoreRelay(generation: generation) }
             quickText = drafts.first { $0.id == "quick-entry-text" }?.fields.text("quickInput") ?? ""
             observer = Task { [weak self] in
                 for await _ in await repo.changes() {
@@ -201,39 +328,65 @@ enum SidebarPage: String { case calendar, invitations, pending }
     func reload() async {
         guard let repository else { return }
         let generation = sessionGeneration
+        let requestedRange = visibleRange, requestedZone = preferences.timeZone, requestedCalendar = calendar
         loadRevision += 1; let requestedRevision = loadRevision
+        func requestIsCurrent() -> Bool {
+            !Task.isCancelled && generation == sessionGeneration && requestedRevision == loadRevision
+                && requestedRange == visibleRange && requestedZone == preferences.timeZone
+        }
         do {
-            let snapshot = try await repository.snapshot(interval: visibleRange, displayZone: preferences.timeZone)
-            let today = calendar.startOfDay(for: Date()), end = calendar.date(byAdding: .day, value: 30, to: today)!
-            let menu = try await repository.snapshot(interval: DateInterval(start: today, end: end), displayZone: preferences.timeZone)
-            guard generation == sessionGeneration, requestedRevision == loadRevision else { return }
+            let snapshot = try await repository.snapshot(interval: requestedRange, displayZone: requestedZone)
+            let today = requestedCalendar.startOfDay(for: Date()), end = requestedCalendar.date(byAdding: .day, value: 30, to: today)!
+            let menu = try await repository.snapshot(interval: DateInterval(start: today, end: end), displayZone: requestedZone)
+            guard requestIsCurrent() else { return }
+            if !accounts.isEmpty, Set(accounts.map(\.id)) != Set(snapshot.accounts.map(\.id)) { resetAssistant() }
             accounts = snapshot.accounts; calendars = snapshot.calendars; events = snapshot.events; menuEvents = menu.events; pending = snapshot.mutations; drafts = snapshot.drafts; conflicts = snapshot.conflicts; coverage = snapshot.coverage
             recentChanges = snapshot.recentChanges
             if let editing = editingDraft, let original = editing.source {
                 let source = calendars.first { $0.key == original.key.calendar }
                 if source == nil || source?.deleted == true || source?.readable == false || (source?.role == "writerWithoutPrivateAccess" && original.raw.text("visibility") == "private") {
                     try await repository.saveDraft(unsavedDrafts[editing.id] ?? editing)
-                    unsavedDrafts[editing.id] = nil; editingDraft = nil
-                    errorMessage = "Access to this calendar changed. Your changed fields remain saved as a recovery draft."
+                    guard requestIsCurrent() else { return }
+                    unsavedDrafts[editing.id] = nil
+                    if editingDraft?.id == editing.id {
+                        editingDraft = nil
+                        errorMessage = "Access to this calendar changed. Your changed fields remain saved as a recovery draft."
+                    }
                 }
             }
             await loadCompanionDay(fetch: false)
+            guard requestIsCurrent() else { return }
             if let current = selectedEvent {
                 if let updated = snapshot.events.first(where: { $0.id == current.id }) { selectedEvent = updated }
-                else { selectedEvent = try await repository.event(current.key) }
+                else {
+                    let updated = try await repository.event(current.key)
+                    guard requestIsCurrent() else { return }
+                    if selectedEvent?.key == current.key { selectedEvent = updated }
+                }
             }
             statusMessage = demoOffline ? "Demo · Offline" : isDemo ? "Demo · Stored on this Mac" : accounts.isEmpty ? "Connect a Google account to get started" : accounts.contains { $0.status != .healthy } ? "Some calendars need attention" : "Up to date"
             if preferences.defaultCalendar == nil, let first = calendars.first(where: { $0.primary && $0.writable && $0.syncEnabled }) { preferences.defaultCalendar = first.key; try await repository.setPreferences(preferences) }
+            guard requestIsCurrent() else { return }
             notifications?.snoozeMinutes = preferences.snoozeMinutes
             if !isDemo {
                 let notificationStart = calendar.date(byAdding: .day, value: -1, to: today)!
                 let notificationSnapshot = try await repository.snapshot(interval: DateInterval(start: notificationStart, end: end), displayZone: preferences.timeZone)
-                guard generation == sessionGeneration, requestedRevision == loadRevision else { return }
+                guard requestIsCurrent() else { return }
                 let desired = ReminderPlanner.plan(events: notificationSnapshot.events, calendars: calendars, preferences: preferences, now: Date())
                 let valid = ReminderPlanner.plan(events: notificationSnapshot.events, calendars: calendars, preferences: preferences, now: Date(), capacity: 2000, includeRecentPast: true)
-                try await notifications?.reconcile(desired, validReminders: valid)
+                let scheduler = notifications
+                let coordinator = relay
+                let connectionID = relayConnectionID
+                let authorization = await scheduler?.permission()
+                guard requestIsCurrent(), connectionID == relayConnectionID else { return }
+                let relayInput = RelayReconciliation(accounts: accounts, calendars: calendars, desired: desired, valid: valid,
+                    remindersEnabled: preferences.notifications, notificationAuthorization: authorization == .authorized || authorization == .provisional)
+                lastRelayInput = relayInput
+                await coordinator?.update(relayInput)
+                guard requestIsCurrent(), connectionID == relayConnectionID else { return }
+                try await scheduler?.reconcile(desired, validReminders: valid, remoteOwnedIDs: relayOwnedReminderIDs)
             }
-        } catch { errorMessage = error.localizedDescription }
+        } catch { if requestIsCurrent() { errorMessage = error.localizedDescription } }
     }
     func refresh() async {
         refreshRequested = true
@@ -254,13 +407,28 @@ enum SidebarPage: String { case calendar, invitations, pending }
         } while refreshRequested && !isSleeping
     }
     func loadCompanionDay(fetch: Bool) async {
+        guard let repository else { return }
+        let generation = sessionGeneration, requestedZone = preferences.timeZone
         let range = calendar.dateInterval(of: .day, for: menuDate)!
+        companionLoadRevision += 1; let requestedRevision = companionLoadRevision
+        companionLoadFailure = nil
+        func requestIsCurrent() -> Bool {
+            !Task.isCancelled && generation == sessionGeneration && requestedRevision == companionLoadRevision
+                && requestedZone == preferences.timeZone && range == calendar.dateInterval(of: .day, for: menuDate)
+        }
         if fetch { await sync?.refresh(window: range) }
+        guard requestIsCurrent() else { return }
         do {
-            guard let snapshot = try await repository?.snapshot(interval: range, displayZone: preferences.timeZone) else { return }
+            let snapshot = try await repository.snapshot(interval: range, displayZone: requestedZone)
+            guard requestIsCurrent() else { return }
             companionEvents = snapshot.events
             companionCovered = snapshot.calendars.filter { $0.visible && $0.syncEnabled && !$0.deleted }.allSatisfy { source in snapshot.coverage.contains { $0.calendar == source.key && $0.interval.start <= range.start && $0.interval.end >= range.end } }
-        } catch { errorMessage = error.localizedDescription }
+            companionLoadedRange = range; companionLoadedZone = requestedZone
+        } catch {
+            if requestIsCurrent() {
+                companionLoadFailure = CompanionLoadFailure(range: range, zone: requestedZone, message: error.localizedDescription)
+            }
+        }
     }
     func navigate(_ direction: Int) {
         let component: Calendar.Component = mode == .day ? .day : mode == .week ? .weekOfYear : .month

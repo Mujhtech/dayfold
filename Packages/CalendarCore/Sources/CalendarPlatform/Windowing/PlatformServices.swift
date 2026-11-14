@@ -17,6 +17,17 @@ extension KeyboardShortcuts.Name {
     public static let dayfoldQuickEntry = Self("dayfoldQuickEntry", initial: .init(.space, modifiers: [.control, .option]))
 }
 @MainActor public enum PlatformServices {
+    /// Sets the default for native windows and panels. SwiftUI scenes must also
+    /// bind their preferredColorScheme to the same choice. Clearing this override
+    /// restores AppKit's live system appearance inheritance.
+    public static func setAppearance(_ preference: String) {
+        switch preference {
+        case "light": NSApplication.shared.appearance = NSAppearance(named: .aqua)
+        case "dark": NSApplication.shared.appearance = NSAppearance(named: .darkAqua)
+        default: NSApplication.shared.appearance = nil
+        }
+    }
+
     public static func registerQuickEntry(_ action: @escaping @MainActor () -> Void) { KeyboardShortcuts.onKeyUp(for: .dayfoldQuickEntry, action: action) }
     public static var loginStatus: String {
         switch SMAppService.mainApp.status { case .enabled: "Enabled"; case .notRegistered: "Off"; case .requiresApproval: "Approval required in System Settings"; case .notFound: "Unavailable"; @unknown default: "Unknown" }
