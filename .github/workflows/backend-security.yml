@@ -13,7 +13,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Exercise native credential and transport boundaries
@@ -38,7 +38,7 @@ jobs:
     env:
       DAYFOLD_TEST_DATABASE_URL: postgres://dayfold_test:disposable-ci-only@localhost:5432/dayfold_test
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Install the pinned Rust toolchain
