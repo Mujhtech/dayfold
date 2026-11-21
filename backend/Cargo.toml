@@ -17,7 +17,7 @@ clap = { version = "4.6", features = ["derive", "env"] }
 futures-util = "0.3"
 # Use the supported AWS-LC provider for APNs ES256 signing. The alternative
 # rust_crypto feature includes vulnerable crypto-bigint/RSA dependencies.
-jsonwebtoken = { version = "11.1", default-features = false, features = ["aws_lc_rs", "use_pem"] }
+jsonwebtoken = { version = "12.0", default-features = false, features = ["aws_lc_rs", "use_pem"] }
 reqwest = { version = "0.13.4", default-features = false, features = ["http2", "rustls", "json"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
